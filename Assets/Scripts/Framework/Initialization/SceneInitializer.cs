@@ -12,7 +12,7 @@ namespace Framework.Initialization
         public InitializeOperationContainer Initialize()
         {
             var container = InitializeOperationContainer.Create();
-            InitializeInternal(container.Value).Forget();
+            InitializeInternal(container.Operation).Forget();
             return container;
         }
         

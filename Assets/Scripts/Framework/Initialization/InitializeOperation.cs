@@ -5,21 +5,21 @@ namespace Framework.Initialization
 {
     public struct InitializeOperationContainer : IDisposable
     {
-        public bool IsDone => Value.IsDone;
-        public float Progress => Value.Progress;
+        public bool IsDone => Operation.IsDone;
+        public float Progress => Operation.Progress;
         
-        public InitializeOperation Value;
+        public InitializeOperation Operation;
         
         public void Dispose()
         {
-            PlainSharpObjectsPool<InitializeOperation>.Shared.Return(Value);
+            PlainSharpObjectsPool<InitializeOperation>.Shared.Return(Operation);
         }
 
         public static InitializeOperationContainer Create()
         {
             return new InitializeOperationContainer
             {
-                Value = PlainSharpObjectsPool<InitializeOperation>.Shared.Get()
+                Operation = PlainSharpObjectsPool<InitializeOperation>.Shared.Get()
             };
         }
     }

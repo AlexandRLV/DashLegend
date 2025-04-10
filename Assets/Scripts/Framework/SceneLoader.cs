@@ -9,7 +9,7 @@ namespace Framework
         public InitializeOperationContainer LoadScene(string sceneName)
         {
             var container = InitializeOperationContainer.Create();
-            LoadSceneInternal(sceneName, container.Value).Forget();
+            LoadSceneInternal(sceneName, container.Operation).Forget();
             return container;
         }
 
