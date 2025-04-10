@@ -99,19 +99,22 @@ namespace Framework.DI
         public T Create<T>()
         {
             var type = typeof(T);
+            var instance = Create(type);
+            return (T)instance;
+        }
+
+        public object Create(Type type)
+        {
             var constructors = type.GetConstructors()
                 .Where(x => x.IsDefined(typeof(InjectAttribute)));
 
             object instance;
-            T typedInstance;
-            
             var constructor = constructors.FirstOrDefault();
             if (constructor == null)
             {
-                instance = Activator.CreateInstance<T>();
-                typedInstance = (T)instance;
-                InjectToInstance(typedInstance);
-                return typedInstance;
+                instance = Activator.CreateInstance(type);
+                InjectToInstance(instance);
+                return instance;
             }
 
             var parameters = constructor.GetParameters();
@@ -128,9 +131,8 @@ namespace Framework.DI
             }
 
             instance = constructor.Invoke(parametersValues);
-            typedInstance = (T)instance;
-            InjectToInstance(typedInstance);
-            return typedInstance;
+            InjectToInstance(instance);
+            return instance;
         }
         
         // Method for instantiating prefab and passing all [Inject] fields and methods in it

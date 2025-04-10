@@ -5,7 +5,7 @@ namespace Framework.Pools
 {
     public class PlainSharpObjectsPool<T> where T : IDisposable, new()
     {
-        public static PlainSharpObjectsPool<T> shared = new();
+        public static readonly PlainSharpObjectsPool<T> Shared = new();
 		
         private readonly Queue<T> _queue;
 		

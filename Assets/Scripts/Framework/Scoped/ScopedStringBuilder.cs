@@ -20,14 +20,14 @@ namespace Framework.Scoped
         
         public void Dispose()
         {
-            PlainSharpObjectsPool<StringBuilderContainer>.shared.Return(_value);
+            PlainSharpObjectsPool<StringBuilderContainer>.Shared.Return(_value);
         }
 
         public static ScopedStringBuilder Get(out StringBuilder stringBuilder)
         {
             var scopedContainer = new ScopedStringBuilder
             {
-                _value = PlainSharpObjectsPool<StringBuilderContainer>.shared.Get()
+                _value = PlainSharpObjectsPool<StringBuilderContainer>.Shared.Get()
             };
 
             stringBuilder = scopedContainer._value.Value;

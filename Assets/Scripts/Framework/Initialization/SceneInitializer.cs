@@ -9,20 +9,28 @@ namespace Framework.Initialization
     {
         [SerializeField] private InitializerBase[] _initializers;
 
-        public async UniTask Initialize()
+        public InitializeOperationContainer Initialize()
+        {
+            var container = InitializeOperationContainer.Create();
+            InitializeInternal(container.Value).Forget();
+            return container;
+        }
+        
+        private async UniTask InitializeInternal(InitializeOperation operation)
         {
             GameContainer.Current.Register(this);
-            
-            // float currentProgress = loadingScreen.Progress; // TODO: make progress as framework
-            // float progressStep = (1f - currentProgress) / _initializers.Length;
-            
+
+            float i = 0;
             foreach (var initializer in _initializers)
             {
                 GameContainer.Current.InjectToInstance(initializer);
                 await initializer.Initialize();
-                // currentProgress += progressStep;
-                // loadingScreen.Progress = currentProgress;
+                i++;
+                operation.Progress = i / _initializers.Length;
             }
+
+            operation.Progress = 1f;
+            operation.IsDone = true;
         }
 
         public void Dispose()

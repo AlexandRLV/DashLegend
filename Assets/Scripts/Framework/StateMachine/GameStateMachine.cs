@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Framework.DI;
 using UnityEngine;
 
 namespace Framework.StateMachine
@@ -8,11 +9,14 @@ namespace Framework.StateMachine
     public class GameStateMachine
     {
         private IGameState _currentState;
-        private readonly Dictionary<Type, IGameState> _states;
+        private readonly Dictionary<Type, IGameState> _states = new();
 
-        public GameStateMachine(Dictionary<Type, IGameState> states)
+        public void AddGameState<TStateData, TState>()
+            where TStateData : struct, IGameStateData
+            where TState : IGameState<TStateData>
         {
-            _states = states;
+            var dataType = typeof(TStateData);
+            _states.Add(dataType, (IGameState)GameContainer.Current.Create(typeof(TState)));
         }
 
         public void SwitchToState<T>(T data, bool force = false) where T : struct, IGameStateData
