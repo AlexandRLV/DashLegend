@@ -5,5 +5,6 @@
         Run,
         Jump,
         Fall,
+        Die,
     }
 }
