@@ -26,7 +26,7 @@ namespace GameCore.Character
                 return;
 
             _currentAnimation = animationType;
-            _animator.CrossFade(stateHash, 0.1f, 0);
+            _animator.CrossFade(stateHash, 0.2f, 0);
         }
     }
 }

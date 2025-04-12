@@ -29,7 +29,7 @@ namespace Framework.CharacterStateMachine
                 if (!nextState.CanEnter(_currentType)) continue;
                 if (!CurrentState.CanExit(nextState.Type)) continue;
 
-                if (debug) Debug.Log($"Switching state to {nextType.ToString()}");
+                if (debug) Debug.Log($"Switching character state to {nextType.ToString()}");
 
                 CurrentState.OnExit(nextState.Type);
                 nextState.OnEnter(_currentType);
@@ -58,7 +58,7 @@ namespace Framework.CharacterStateMachine
                     state.OnEnter(default);
                 }
 				
-                if (debug) Debug.Log($"Switching state to {stateType.ToString()}");
+                if (debug) Debug.Log($"Switching character state to {stateType.ToString()}");
 
                 CurrentState = state;
                 _currentType = stateType;

@@ -6,9 +6,9 @@ namespace GameCore.Character
 {
     public class PlayerCharacter : MonoBehaviour
     {
-        public CharacterMoveValues MoveValues;
         public bool IsDead;
-        
+        public readonly CharacterMoveValues MoveValues = new();
+
         [SerializeField] public CharacterParameters Parameters;
         
         private bool _hasVisuals;
@@ -35,7 +35,10 @@ namespace GameCore.Character
             _stateMachine.CheckStates(true);
             
             if (_hasVisuals)
+            {
                 _visuals.PlayAnimation(_stateMachine.CurrentState.AnimationType);
+                _visuals.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            }
         }
     }
 }

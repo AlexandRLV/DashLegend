@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956a76ef45bb4f6aa7d1564585752dfe, type: 3}
   m_Name: CharacterParameters
   m_EditorClassIdentifier: 
-  JumpHeight: 1
-  TotalJumpTime: 1
-  JumpUpTime: 0.6
+  JumpHeight: 3
+  TotalJumpTime: 0.7
+  JumpUpTime: 0.5
   JumpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 3.9017456
-      outSlope: 3.9017456
+      inSlope: 5.1936755
+      outSlope: 5.1936755
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.069164276
+      outWeight: 0.04225065
     - serializedVersion: 3
-      time: 0.6
-      value: 1
+      time: 0.5028931
+      value: 1.0146523
       inSlope: -0.0016183555
       outSlope: -0.0016183555
       tangentMode: 0
@@ -37,13 +37,22 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -6.4699507
-      outSlope: -6.4699507
+      time: 0.9305968
+      value: -0.03728576
+      inSlope: -1.8398608
+      outSlope: -1.8398608
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.033621345
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9999935
+      value: -0.002532959
+      inSlope: -0.12607034
+      outSlope: -0.12607034
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10233992
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Framework.DI;
 using Framework.Initialization;
 using Framework.Pools;
@@ -15,7 +16,17 @@ namespace Startup.LevelInitializers
         
         public override UniTask Initialize()
         {
-            GameContainer.Current.Register(new InputState());
+            var desktopInputReader = GameContainer.Current.Create<DesktopInputReader>();
+            desktopInputReader.Initialize();
+            // TODO: touch input reader
+            GameContainer.Current.AddDisposable(desktopInputReader);
+
+            var inputState = GameContainer.Current.Create<InputState>();
+            inputState.Initialize(new List<IInputSource>
+            {
+                desktopInputReader,
+            });
+            GameContainer.Current.Register(inputState);
             
             var visuals = PrefabMonoPool<CharacterVisuals>.GetPrefabInstance(_characterVisualsPrefab);
             

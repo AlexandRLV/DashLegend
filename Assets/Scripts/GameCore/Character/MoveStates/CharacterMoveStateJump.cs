@@ -16,10 +16,11 @@ namespace GameCore.Character.MoveStates
         }
 
         public override bool CanEnter(CharacterMoveStateType prevState) => prevState == CharacterMoveStateType.Run && _inputState.JumpPressed;
-        public override bool CanExit(CharacterMoveStateType nextState) => Character.MoveValues.JumpTimer >= Character.Parameters.JumpUpTime;
+        public override bool CanExit(CharacterMoveStateType nextState) => nextState == CharacterMoveStateType.Fall && Character.MoveValues.JumpTimer >= Character.Parameters.JumpUpTime;
 
         public override void OnEnter(CharacterMoveStateType prevState)
         {
+            Character.MoveValues.JumpTimer = 0f;
             Character.MoveValues.StartJumpY = Character.transform.position.y;
             Character.MoveValues.EndJumpY = Character.MoveValues.StartJumpY + Character.Parameters.JumpHeight;
         }

@@ -22,6 +22,8 @@ namespace Framework.Initialization.MainInitializers
             var monoUpdater = monoUpdaterGO.AddComponent<MonoUpdater>();
             GameContainer.Current.Register(monoUpdater);
             
+            DontDestroyOnLoad(monoUpdaterGO);
+            
             return UniTask.CompletedTask;
         }
 

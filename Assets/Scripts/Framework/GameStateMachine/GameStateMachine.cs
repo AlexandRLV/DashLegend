@@ -27,13 +27,13 @@ namespace Framework.GameStateMachine
         private async UniTask SwitchToStateAsync<T>(T data, bool force = false) where T : struct, IGameStateData
         {
             var type = typeof(T);
-            Debug.Log($"Switching to state {type.Name}");
+            Debug.Log($"Switching to game state {type.Name}");
 
             var targetState = _states[type];
             
             if (_currentState == targetState && !force)
             {
-                Debug.Log($"Already in state {targetState}");
+                Debug.Log($"Already in game state {targetState}");
                 return;
             }
 
@@ -43,7 +43,7 @@ namespace Framework.GameStateMachine
             _currentState = targetState;
             if (_currentState is not IGameState<T> state)
             {
-                Debug.LogError($"[GameStateMachine] Can't cast state {_currentState} to {typeof(T)}");
+                Debug.LogError($"[GameStateMachine] Can't cast game state {_currentState} to {typeof(T)}");
                 return;
             }
 
