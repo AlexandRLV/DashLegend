@@ -9,8 +9,6 @@ namespace Framework.Pools
         private static readonly Dictionary<int, int> _spawnedInstancesPrefabIds = new();
 		private static readonly Dictionary<int, PrefabGameObjectPool> _prefabPools = new();
 
-		private static GameObject _mainRoot;
-
 		private GameObject _root;
 		private readonly GameObject _prefab;
 		private readonly Queue<GameObject> _queue;
@@ -19,7 +17,7 @@ namespace Framework.Pools
 		{
 			int instanceId = prefab.GetInstanceID();
 			_root = new GameObject($"Prefab pool {prefab.name} - {instanceId.ToString()}");
-			_root.transform.SetParent(_mainRoot.transform);
+			_root.transform.SetParent(PrefabPoolsRoot.Root.transform);
 			_prefab = prefab;
 			_queue = new Queue<GameObject>();
 
@@ -36,7 +34,7 @@ namespace Framework.Pools
 			if (_root != null) return;
 			
 			_root = new GameObject($"Prefab pool {_prefab.name} - {_prefab.GetInstanceID().ToString()}");
-			_root.transform.SetParent(_mainRoot.transform);
+			_root.transform.SetParent(PrefabPoolsRoot.Root.transform);
 			_queue.Clear();
 		}
 
@@ -113,9 +111,9 @@ namespace Framework.Pools
 
 		private static void EnsureCreatedMainRoot()
 		{
-			if (_mainRoot != null) return;
+			if (PrefabPoolsRoot.Root != null) return;
 
-			_mainRoot = new GameObject("Prefab Game Objects Pools");
+			PrefabPoolsRoot.CreateMainRoot();
 			_prefabPools.Clear();
 			_spawnedInstancesPrefabIds.Clear();
 		}

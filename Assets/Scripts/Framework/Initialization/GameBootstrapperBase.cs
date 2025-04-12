@@ -1,7 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Framework.DI;
-using Framework.StateMachine;
 using UnityEngine;
 
 namespace Framework.Initialization
@@ -10,12 +9,28 @@ namespace Framework.Initialization
     {
         [SerializeField] private SceneInitializer _bootstrapSceneInitializer;
 
+        private async void Awake()
+        {
+            try
+            {
+                await OnAwake();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[GameBootstrapper] Error on initialization: {e}");
+            }
+        }
+
         protected void InitContainer()
         {
-            var mainContainer = GameContainer.CreateNew();
-            var stateMachine = new GameStateMachine();
+            GameContainer.CreateNew();
+        }
+
+        protected void InitStateMachine()
+        {
+            var stateMachine = new GameStateMachine.GameStateMachine();
+            GameContainer.Current.Register(stateMachine);
             AddGameStates(stateMachine);
-            mainContainer.Register(stateMachine);
         }
         
         protected InitializeOperationContainer Initialize()
@@ -28,24 +43,18 @@ namespace Framework.Initialization
 
         private async UniTask InitializeInternal(InitializeOperation operation)
         {
-            try
+            using var initializerOperation = _bootstrapSceneInitializer.Initialize();
+            while (!initializerOperation.IsDone)
             {
-                using var initializerOperation = _bootstrapSceneInitializer.Initialize();
-                while (!operation.IsDone)
-                {
-                    await UniTask.Yield();
-                    operation.Progress = initializerOperation.Progress;
-                }
+                await UniTask.Yield();
+                operation.Progress = initializerOperation.Progress;
+            }
                 
-                operation.Progress = 1f;
-                operation.IsDone = true;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[GameBootstrapper] Error on initialization: {e}");
-            }
+            operation.Progress = 1f;
+            operation.IsDone = true;
         }
 
-        protected abstract void AddGameStates(GameStateMachine stateMachine);
+        protected abstract UniTask OnAwake();
+        protected abstract void AddGameStates(GameStateMachine.GameStateMachine stateMachine);
     }
 }

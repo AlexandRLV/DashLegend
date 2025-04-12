@@ -60,6 +60,11 @@ namespace GameCore.Level
                 var partPrefab = _availableLevelParts.LevelParts.GetRandom();
                 var position = transform.position + Vector3.forward * (furthestCoveredZ + partPrefab.HalfLength);
                 var levelPart = PrefabMonoPool<LevelPart>.GetPrefabInstance(partPrefab);
+
+#if UNITY_EDITOR
+                levelPart.transform.parent = transform;
+#endif
+                
                 levelPart.transform.position = position;
                 _spawnedParts.Add(levelPart);
                 furthestCoveredZ += levelPart.HalfLength * 2f;

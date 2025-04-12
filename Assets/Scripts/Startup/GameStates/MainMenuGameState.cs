@@ -1,12 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
-using Framework.StateMachine;
+using Framework.GameStateMachine;
 
 namespace Startup.GameStates
 {
-    public struct MainMenuGameStateData : IGameStateData
-    {
-        
-    }
+    public struct MainMenuGameStateData : IGameStateData { }
     
     public class MainMenuGameState : IGameState<MainMenuGameStateData>
     {

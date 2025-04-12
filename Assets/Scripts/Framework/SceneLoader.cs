@@ -1,5 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Framework.Initialization;
+using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 
 namespace Framework
@@ -26,6 +28,26 @@ namespace Framework
 
             operation.Progress = 1f;
             operation.IsDone = true;
+        }
+
+        public bool TryGetActiveSceneInitializer(out SceneInitializer initializer)
+        {
+            using var rootObjectsPooled = ListPool<GameObject>.Get(out var rootObjects);
+            
+            var scene = SceneManager.GetActiveScene();
+            scene.GetRootGameObjects(rootObjects);
+            
+            foreach (var gameObject in rootObjects)
+            {
+                if (gameObject.TryGetComponent(out SceneInitializer levelInitializer))
+                {
+                    initializer = levelInitializer;
+                    return true;
+                }
+            }
+
+            initializer = null;
+            return false;
         }
     }
 }

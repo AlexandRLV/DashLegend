@@ -138,14 +138,14 @@ namespace Framework.DI
         // Method for instantiating prefab and passing all [Inject] fields and methods in it
         public T InstantiateAndResolve<T>(T prefab) where T : MonoBehaviour
         {
-            var spawnedObject = Object.Instantiate(prefab);
+            var spawnedObject = PrefabMonoPool<T>.GetPrefabInstance(prefab);
             InjectToInstance(spawnedObject);
             return spawnedObject;
         }
         
         public T InstantiateAndResolve<T>(T prefab, Transform parent) where T : MonoBehaviour
         {
-            var spawnedObject = Object.Instantiate(prefab, parent);
+            var spawnedObject = PrefabMonoPool<T>.GetPrefabInstanceForParent(prefab, parent);
             InjectToInstance(spawnedObject);
             return spawnedObject;
         }

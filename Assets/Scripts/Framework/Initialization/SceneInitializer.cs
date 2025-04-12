@@ -18,8 +18,6 @@ namespace Framework.Initialization
         
         private async UniTask InitializeInternal(InitializeOperation operation)
         {
-            GameContainer.Current.Register(this);
-
             float i = 0;
             foreach (var initializer in _initializers)
             {
@@ -40,5 +38,13 @@ namespace Framework.Initialization
                 initializer.Dispose();
             }
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Collect initializers")]
+        private void CollectInitializers()
+        {
+            _initializers = GetComponents<InitializerBase>();
+        }
+#endif
     }
 }

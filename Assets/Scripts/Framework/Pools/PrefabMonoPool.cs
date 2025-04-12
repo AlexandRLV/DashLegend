@@ -9,9 +9,6 @@ namespace Framework.Pools
 		// ReSharper disable once StaticMemberInGenericType
 		private static readonly Dictionary<int, int> _spawnedInstancesPrefabIds = new();
 		private static readonly Dictionary<int, PrefabMonoPool<T>> _prefabPools = new();
-
-		// ReSharper disable once StaticMemberInGenericType
-		private static GameObject _mainRoot;
 		
 		private GameObject _root;
 		private readonly T _prefab;
@@ -22,7 +19,7 @@ namespace Framework.Pools
 			var type = typeof(T);
 			int instanceId = prefab.GetInstanceID();
 			_root = new GameObject($"Prefab pool {type.Name} - {instanceId.ToString()}");
-			_root.transform.SetParent(_mainRoot.transform);
+			_root.transform.SetParent(PrefabPoolsRoot.Root.transform);
 			_prefab = prefab;
 			_queue = new Queue<T>();
 
@@ -40,7 +37,7 @@ namespace Framework.Pools
 			
 			var type = typeof(T);
 			_root = new GameObject($"Prefab pool {type.Name} - {_prefab.GetInstanceID().ToString()}");
-			_root.transform.SetParent(_mainRoot.transform);
+			_root.transform.SetParent(PrefabPoolsRoot.Root.transform);
 			_queue.Clear();
 		}
 
@@ -122,9 +119,9 @@ namespace Framework.Pools
 
 		private static void EnsureCreatedMainRoot()
 		{
-			if (_mainRoot != null) return;
+			if (PrefabPoolsRoot.Root != null) return;
 
-			_mainRoot = new GameObject("Prefab Game Objects Pools");
+			PrefabPoolsRoot.CreateMainRoot();
 			_prefabPools.Clear();
 			_spawnedInstancesPrefabIds.Clear();
 		}
