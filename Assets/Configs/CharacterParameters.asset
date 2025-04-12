@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterParameters
   m_EditorClassIdentifier: 
   JumpHeight: 3
-  TotalJumpTime: 0.7
+  TotalJumpTime: 1
   JumpUpTime: 0.5
   JumpCurve:
     serializedVersion: 2
@@ -28,8 +28,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.04225065
     - serializedVersion: 3
-      time: 0.5028931
-      value: 1.0146523
+      time: 0.5048157
+      value: 1.0307579
       inSlope: -0.0016183555
       outSlope: -0.0016183555
       tangentMode: 0
@@ -37,13 +37,13 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9305968
-      value: -0.03728576
-      inSlope: -1.8398608
-      outSlope: -1.8398608
+      time: 0.8931331
+      value: 0.013719171
+      inSlope: -4.893663
+      outSlope: -4.893663
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.06051771
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.9999935

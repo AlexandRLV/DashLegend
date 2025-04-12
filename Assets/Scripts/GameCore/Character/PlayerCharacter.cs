@@ -1,5 +1,9 @@
-﻿using Framework.CharacterStateMachine;
+﻿using Framework;
+using Framework.CharacterStateMachine;
+using Framework.DI;
 using GameCore.Character.MoveStates;
+using GameCore.Level;
+using LocalMessages;
 using UnityEngine;
 
 namespace GameCore.Character
@@ -10,6 +14,8 @@ namespace GameCore.Character
         public readonly CharacterMoveValues MoveValues = new();
 
         [SerializeField] public CharacterParameters Parameters;
+
+        [Inject] private readonly LocalMessageBroker _localMessageBroker;
         
         private bool _hasVisuals;
         private CharacterVisuals _visuals;
@@ -25,6 +31,7 @@ namespace GameCore.Character
             _stateMachine.States.Add(new CharacterMoveStateRun(this));
             _stateMachine.States.Add(new CharacterMoveStateJump(this));
             _stateMachine.States.Add(new CharacterMoveStateFall(this));
+            _stateMachine.States.Add(new CharacterMoveStateDie(this));
             
             _stateMachine.ForceSetState(CharacterMoveStateType.Run, true);
         }
@@ -38,6 +45,15 @@ namespace GameCore.Character
             {
                 _visuals.PlayAnimation(_stateMachine.CurrentState.AnimationType);
                 _visuals.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            }
+        }
+
+        public void OnTrigger(Collider other)
+        {
+            if (other.GetComponent<Obstacle>() != null)
+            {
+                IsDead = true;
+                _localMessageBroker.TriggerEmpty<PlayerDeadMessage>();
             }
         }
     }
