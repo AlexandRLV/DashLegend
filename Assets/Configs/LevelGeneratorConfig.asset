@@ -23,10 +23,10 @@ MonoBehaviour:
     PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
       type: 3}
   GameLevelParts:
-  - <Chance>k__BackingField: 0.3
+  - <Chance>k__BackingField: 0.2
     PartPrefab: {fileID: 1714454046044486947, guid: 07302a6aecd503f44a5dd73085601245,
       type: 3}
-  - <Chance>k__BackingField: 0.1
+  - <Chance>k__BackingField: 0.05
     PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
       type: 3}
   - <Chance>k__BackingField: 0.2
@@ -39,7 +39,7 @@ MonoBehaviour:
     PartPrefab: {fileID: 6860929017986628062, guid: 5cbc526507e2e544f8520b3716c7404f,
       type: 3}
   MenuLevelParts:
-  - <Chance>k__BackingField: 0
+  - <Chance>k__BackingField: 0.5
     PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
       type: 3}
   - <Chance>k__BackingField: 0.3
