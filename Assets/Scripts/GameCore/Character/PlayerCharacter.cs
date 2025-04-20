@@ -1,6 +1,7 @@
 ﻿using Framework;
 using Framework.CharacterStateMachine;
 using Framework.DI;
+using Framework.Extensions;
 using GameCore.Character.MoveStates;
 using GameCore.Level;
 using LocalMessages;
@@ -11,7 +12,7 @@ namespace GameCore.Character
     public class PlayerCharacter : MonoBehaviour
     {
         public bool IsDead;
-        public readonly CharacterMoveValues MoveValues = new();
+        public CharacterMoveValues MoveValues;
 
         [SerializeField] public CharacterParameters Parameters;
 
@@ -24,6 +25,12 @@ namespace GameCore.Character
 
         public void Initialize(CharacterVisuals visuals)
         {
+            MoveValues = new CharacterMoveValues
+            {
+                StartJumpY = transform.position.y,
+                EndJumpY = transform.position.y + Parameters.JumpHeight
+            };
+            
             _visuals = visuals;
             _hasVisuals = _visuals != null;
 
@@ -34,6 +41,13 @@ namespace GameCore.Character
             _stateMachine.States.Add(new CharacterMoveStateDie(this));
             
             _stateMachine.ForceSetState(CharacterMoveStateType.Run, true);
+        }
+
+        public void Revive()
+        {
+            _stateMachine.ForceSetState(CharacterMoveStateType.Run, true);
+            IsDead = false;
+            transform.position = transform.position.WithY(MoveValues.StartJumpY);
         }
 
         private void Update()
@@ -50,6 +64,12 @@ namespace GameCore.Character
 
         public void OnTrigger(Collider other)
         {
+            if (MoveValues.IsAutoRun)
+                return;
+            
+            if (IsDead)
+                return;
+            
             if (other.GetComponent<Obstacle>() != null)
             {
                 IsDead = true;

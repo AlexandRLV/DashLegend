@@ -5,5 +5,6 @@
         public float JumpTimer;
         public float StartJumpY;
         public float EndJumpY;
+        public bool IsAutoRun;
     }
 }

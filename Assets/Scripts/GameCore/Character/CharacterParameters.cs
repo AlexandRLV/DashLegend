@@ -9,5 +9,8 @@ namespace GameCore.Character
         [SerializeField] public float TotalJumpTime;
         [SerializeField] public float JumpUpTime;
         [SerializeField] public AnimationCurve JumpCurve;
+
+        [SerializeField] public float AutoJumpCheckUpOffset;
+        [SerializeField] public float AutoJumpCheckDistance;
     }
 }

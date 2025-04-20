@@ -464,7 +464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0677ec0f94e049589cc683214708136c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelPartsConfig: {fileID: 11400000, guid: 19ca5f5e294fb554b803a217ed27d393, type: 2}
   _levelGeneratorPrefab: {fileID: 4746643154117514754, guid: 49e450a007eeefc42859f84b676f4ddf,
     type: 3}
 --- !u!114 &1164932062
@@ -498,6 +497,8 @@ MonoBehaviour:
   _playerCharacterPrefab: {fileID: 8881649478812162170, guid: 689f47f8f15f33147aab4cb26f4577cf,
     type: 3}
   _characterVisualsPrefab: {fileID: 8768730962108451055, guid: f6e56ab63a7cb3140996cc1f3083253a,
+    type: 3}
+  _playerShadowPrefab: {fileID: 331490851785766354, guid: e324dfef9ee1133409185ad93e5e9df3,
     type: 3}
 --- !u!114 &1164932064
 MonoBehaviour:

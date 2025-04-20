@@ -19,7 +19,14 @@ namespace Framework.GameStateMachine
             _states.Add(dataType, (IGameState)GameContainer.Current.Create(typeof(TState)));
         }
 
-        public void SwitchToState<T>(T data, bool force = false) where T : struct, IGameStateData
+        public bool IsInState<T>() where T : struct, IGameStateData
+        {
+            var type = typeof(T);
+            var targetState = _states[type];
+            return _currentState == targetState;
+        }
+
+        public void SwitchToState<T>(T data = default, bool force = false) where T : struct, IGameStateData
         {
             SwitchToStateAsync(data, force).Forget();
         }
@@ -27,16 +34,14 @@ namespace Framework.GameStateMachine
         private async UniTask SwitchToStateAsync<T>(T data, bool force = false) where T : struct, IGameStateData
         {
             var type = typeof(T);
-            Debug.Log($"Switching to game state {type.Name}");
-
             var targetState = _states[type];
-            
             if (_currentState == targetState && !force)
             {
                 Debug.Log($"Already in game state {targetState}");
                 return;
             }
 
+            Debug.Log($"Switching to game state {type.Name}");
             if (_currentState != null)
                 await _currentState.OnExit();
             

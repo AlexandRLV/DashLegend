@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Framework.DI;
 using Framework.Initialization;
 using Framework.Pools;
@@ -13,26 +12,27 @@ namespace Startup.LevelInitializers
     {
         [SerializeField] private PlayerCharacter _playerCharacterPrefab;
         [SerializeField] private CharacterVisuals _characterVisualsPrefab;
+        [SerializeField] private GameObject _playerShadowPrefab;
         
         public override UniTask Initialize()
         {
-            var desktopInputReader = GameContainer.Current.Create<DesktopInputReader>();
-            desktopInputReader.Initialize();
-            // TODO: touch input reader
-            GameContainer.Current.AddDisposable(desktopInputReader);
-
             var inputState = GameContainer.Current.Create<InputState>();
-            inputState.Initialize(new List<IInputSource>
-            {
-                desktopInputReader,
-            });
+            inputState.Initialize();
             GameContainer.Current.Register(inputState);
+
+#if UNITY_EDITOR
+            var desktopInputReader = GameContainer.Current.Create<DesktopInputSource>();
+            desktopInputReader.Initialize();
+            GameContainer.Current.AddDisposable(desktopInputReader);
+#endif
             
             var visuals = PrefabMonoPool<CharacterVisuals>.GetPrefabInstance(_characterVisualsPrefab);
             
             var character = GameContainer.Current.InstantiateAndResolve(_playerCharacterPrefab);
             character.Initialize(visuals);
             GameContainer.Current.Register(character);
+
+            var shadow = PrefabGameObjectPool.GetPrefabInstance(_playerShadowPrefab);
             
             return UniTask.CompletedTask;
         }

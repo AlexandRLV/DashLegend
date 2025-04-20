@@ -27,6 +27,9 @@ namespace Startup
             
             InitContainer();
             
+            var stateMachine = new GameStateMachine();
+            GameContainer.Current.Register(stateMachine);
+            
             GameContainer.Current.Register(_loadingScreen);
             GameContainer.Current.Register(_uiRoot);
 
@@ -63,16 +66,17 @@ namespace Startup
             }
             
             _loadingScreen.IsActive = false;
+
+            var windowsSystem = GameContainer.Current.Resolve<WindowsSystem>();
+            windowsSystem.PushWindow<GameHudWindow>();
             
-            InitStateMachine();
-            
-            var stateMachine = GameContainer.Current.Resolve<GameStateMachine>();
-            stateMachine.SwitchToState(new MainMenuGameStateData());
+            AddGameStates(stateMachine);
+            stateMachine.SwitchToState(new PauseGameStateData());
         }
 
-        protected override void AddGameStates(GameStateMachine stateMachine)
+        private void AddGameStates(GameStateMachine stateMachine)
         {
-            stateMachine.AddGameState<MainMenuGameStateData, MainMenuGameState>();
+            stateMachine.AddGameState<PauseGameStateData, PauseGameState>();
             stateMachine.AddGameState<PlayGameStateData, PlayGameState>();
         }
     }

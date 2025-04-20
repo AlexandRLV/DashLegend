@@ -8,13 +8,12 @@ namespace Startup.LevelInitializers
 {
     public class LevelGeneratorInitializer : InitializerBase
     {
-        [SerializeField] private LevelPartsConfig _levelPartsConfig;
         [SerializeField] private LevelGenerator _levelGeneratorPrefab;
         
         public override UniTask Initialize()
         {
             var levelGenerator = GameContainer.Current.InstantiateAndResolve(_levelGeneratorPrefab);
-            levelGenerator.StartSpawn(_levelPartsConfig);
+            GameContainer.Current.Register(levelGenerator);
             return UniTask.CompletedTask;
         }
 

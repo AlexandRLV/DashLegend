@@ -34,6 +34,13 @@ namespace Framework.Extensions
             value.y = 0f;
             return value;
         }
+
+        public static void SetYPosition(this Transform transform, float value)
+        {
+            var position = transform.position;
+            position.y = value;
+            transform.position = position;
+        }
 		
         public static bool IsNaNOrInfinity(this Vector3 v)
         {

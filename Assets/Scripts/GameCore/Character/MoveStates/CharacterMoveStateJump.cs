@@ -1,4 +1,5 @@
 ﻿using Framework.DI;
+using Framework.Extensions;
 using GameCore.Input;
 using UnityEngine;
 
@@ -21,17 +22,14 @@ namespace GameCore.Character.MoveStates
         public override void OnEnter(CharacterMoveStateType prevState)
         {
             Character.MoveValues.JumpTimer = 0f;
-            Character.MoveValues.StartJumpY = Character.transform.position.y;
-            Character.MoveValues.EndJumpY = Character.MoveValues.StartJumpY + Character.Parameters.JumpHeight;
         }
 
         public override void Update()
         {
             Character.MoveValues.JumpTimer += Time.deltaTime;
             float t = Character.MoveValues.JumpTimer / Character.Parameters.TotalJumpTime;
-            var position = Character.transform.position;
-            position.y = Mathf.Lerp(Character.MoveValues.StartJumpY, Character.MoveValues.EndJumpY, Character.Parameters.JumpCurve.Evaluate(t));
-            Character.transform.position = position;
+            float y = Mathf.Lerp(Character.MoveValues.StartJumpY, Character.MoveValues.EndJumpY, Character.Parameters.JumpCurve.Evaluate(t));
+            Character.transform.SetYPosition(y);
         }
     }
 }

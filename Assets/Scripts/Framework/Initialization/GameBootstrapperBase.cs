@@ -25,13 +25,6 @@ namespace Framework.Initialization
         {
             GameContainer.CreateNew();
         }
-
-        protected void InitStateMachine()
-        {
-            var stateMachine = new GameStateMachine.GameStateMachine();
-            GameContainer.Current.Register(stateMachine);
-            AddGameStates(stateMachine);
-        }
         
         protected InitializeOperationContainer Initialize()
         {
@@ -55,6 +48,5 @@ namespace Framework.Initialization
         }
 
         protected abstract UniTask OnAwake();
-        protected abstract void AddGameStates(GameStateMachine.GameStateMachine stateMachine);
     }
 }

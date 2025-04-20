@@ -7,7 +7,7 @@ namespace GameCore.Character.MoveStates
     {
         public abstract AnimationType AnimationType { get; }
         
-        protected PlayerCharacter Character;
+        protected readonly PlayerCharacter Character;
 
         protected CharacterMoveStateBase(PlayerCharacter character)
         {

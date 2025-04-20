@@ -13,7 +13,9 @@ namespace Startup.LevelInitializers
         public override UniTask Initialize()
         {
             GameContainer.Current.Register(_gameConfig);
-            GameContainer.Current.Register(GameContainer.Current.Create<RuntimeGameState>());
+            var gameController = GameContainer.Current.Create<GameController>();
+            gameController.Initialize();
+            GameContainer.Current.Register(gameController);
             return UniTask.CompletedTask;
         }
 

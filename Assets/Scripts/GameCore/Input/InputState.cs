@@ -11,12 +11,22 @@ namespace GameCore.Input
 
         [Inject] private readonly MonoUpdater _monoUpdater;
         
-        private List<IInputSource> _inputSources;
+        private readonly List<IInputSource> _inputSources = new();
         
-        public void Initialize(List<IInputSource> inputSources)
+        public void Initialize()
         {
-            _inputSources = inputSources;
             _monoUpdater.AddUpdatable(this);
+        }
+
+        public void RegisterInputSource(IInputSource inputSource)
+        {
+            if (!_inputSources.Contains(inputSource))
+                _inputSources.Add(inputSource);
+        }
+
+        public void UnregisterInputSource(IInputSource inputSource)
+        {
+            _inputSources.Remove(inputSource);
         }
 
         public void Update()

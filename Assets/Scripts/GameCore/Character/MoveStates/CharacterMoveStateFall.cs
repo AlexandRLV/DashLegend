@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Framework.Extensions;
+using UnityEngine;
 
 namespace GameCore.Character.MoveStates
 {
@@ -13,14 +14,18 @@ namespace GameCore.Character.MoveStates
 
         public override bool CanEnter(CharacterMoveStateType prevState) => prevState == CharacterMoveStateType.Jump;
         public override bool CanExit(CharacterMoveStateType nextState) => Character.MoveValues.JumpTimer >= Character.Parameters.TotalJumpTime;
+        
+        public override void OnExit(CharacterMoveStateType nextState)
+        {
+            Character.transform.SetYPosition(Character.MoveValues.StartJumpY);
+        }
 
         public override void Update()
         {
             Character.MoveValues.JumpTimer += Time.deltaTime;
             float t = Character.MoveValues.JumpTimer / Character.Parameters.TotalJumpTime;
-            var position = Character.transform.position;
-            position.y = Mathf.Lerp(Character.MoveValues.StartJumpY, Character.MoveValues.EndJumpY, Character.Parameters.JumpCurve.Evaluate(t));
-            Character.transform.position = position;
+            float y = Mathf.Lerp(Character.MoveValues.StartJumpY, Character.MoveValues.EndJumpY, Character.Parameters.JumpCurve.Evaluate(t));
+            Character.transform.SetYPosition(y);
         }
     }
 }

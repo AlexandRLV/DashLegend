@@ -6,29 +6,50 @@ using UnityEngine;
 
 namespace GameCore.Level
 {
+    public enum LevelGeneratorMode
+    {
+        Menu,
+        Game,
+    }
+    
     public class LevelGenerator : MonoBehaviour
     {
-        [SerializeField] private float _coverDistance;
-        [SerializeField] private float _destroyDistance;
+        public float PassedDistance => _passedDistance;
 
-        [Inject] private readonly RuntimeGameState _runtimeGameState;
+        [SerializeField] private LevelGeneratorConfig _levelGeneratorConfig;
+
+        [Inject] private readonly GameController _gameController;
         
+        private LevelGeneratorMode _mode;
+
         private bool _enabled;
-        private LevelPartsConfig _availableLevelParts;
+        private float _passedDistance;
+        private float _passedTime;
 
         private readonly List<LevelPart> _spawnedParts = new();
         private readonly List<LevelPart> _partsToDestroy = new();
 
-        public void StartSpawn(LevelPartsConfig availableParts)
+        public void StartSpawn(LevelGeneratorMode mode)
         {
-            if (availableParts == null || availableParts.LevelParts == null || availableParts.LevelParts.Length == 0)
+            _mode = mode;
+            _enabled = true;
+            _passedDistance = 0f;
+            _passedTime = 0f;
+        }
+
+        public void Clear()
+        {
+            _enabled = false;
+            _partsToDestroy.Clear();
+            _partsToDestroy.AddRange(_spawnedParts);
+            
+            foreach (var levelPart in _partsToDestroy)
             {
-                Debug.LogError("[LevelGenerator] Available parts config is null or empty");
-                return;
+                PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
+                _spawnedParts.Remove(levelPart);
             }
             
-            _availableLevelParts = availableParts;
-            _enabled = true;
+            _spawnedParts.Clear();
         }
 
         private void Update()
@@ -36,30 +57,47 @@ namespace GameCore.Level
             if (!_enabled)
                 return;
 
+            _passedTime += Time.deltaTime;
+            MoveSpawnedParts(out float furthestCoveredZ);
+            CleanupPartsToDelete();
+            SpawnNewParts(furthestCoveredZ);
+        }
+
+        private void MoveSpawnedParts(out float furthestCoveredZ)
+        {
+            float passedDistanceThisFrame = _gameController.RunSpeed * Time.deltaTime;
+            _passedDistance += passedDistanceThisFrame;
+            
             _partsToDestroy.Clear();
-            float furthestCoveredZ = 0f;
+            furthestCoveredZ = -_levelGeneratorConfig.DestroyDistance;
             foreach (var levelPart in _spawnedParts)
             {
-                levelPart.transform.position -= Vector3.forward * (_runtimeGameState.RunSpeed * Time.deltaTime);
+                levelPart.transform.position -= Vector3.forward * passedDistanceThisFrame;
                 float maxPartZ = levelPart.transform.position.z + levelPart.HalfLength;
                 if (maxPartZ > furthestCoveredZ)
                     furthestCoveredZ = maxPartZ;
 
-                if (maxPartZ < _destroyDistance)
+                if (maxPartZ < -_levelGeneratorConfig.DestroyDistance)
                     _partsToDestroy.Add(levelPart);
             }
+        }
 
+        private void CleanupPartsToDelete()
+        {
             foreach (var levelPart in _partsToDestroy)
             {
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
             }
+        }
 
-            while (furthestCoveredZ < _coverDistance)
+        private void SpawnNewParts(float furthestCoveredZ)
+        {
+            while (furthestCoveredZ < _levelGeneratorConfig.CoverDistance)
             {
-                var partPrefab = _availableLevelParts.LevelParts.GetRandom();
-                var position = transform.position + Vector3.forward * (furthestCoveredZ + partPrefab.HalfLength);
-                var levelPart = PrefabMonoPool<LevelPart>.GetPrefabInstance(partPrefab);
+                var part = GetAvailableParts().GetRandomWithChance();
+                var position = transform.position + Vector3.forward * (furthestCoveredZ + part.PartPrefab.HalfLength);
+                var levelPart = PrefabMonoPool<LevelPart>.GetPrefabInstance(part.PartPrefab);
 
 #if UNITY_EDITOR
                 levelPart.transform.parent = transform;
@@ -69,6 +107,19 @@ namespace GameCore.Level
                 _spawnedParts.Add(levelPart);
                 furthestCoveredZ += levelPart.HalfLength * 2f;
             }
+        }
+
+        private LevelPartContainer[] GetAvailableParts()
+        {
+            if (_passedTime < _levelGeneratorConfig.EmptyPartsSpawnTime)
+                return _levelGeneratorConfig.EmptyParts;
+            
+            return _mode switch
+            {
+                LevelGeneratorMode.Game => _levelGeneratorConfig.GameLevelParts,
+                LevelGeneratorMode.Menu => _levelGeneratorConfig.MenuLevelParts,
+                _ => _levelGeneratorConfig.EmptyParts,
+            };
         }
     }
 }

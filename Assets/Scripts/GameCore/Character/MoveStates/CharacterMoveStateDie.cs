@@ -7,7 +7,7 @@ namespace GameCore.Character.MoveStates
         public override CharacterMoveStateType Type => CharacterMoveStateType.Die;
         public override AnimationType AnimationType => AnimationType.Die;
 
-        [Inject] private readonly RuntimeGameState _runtimeGameState;
+        [Inject] private readonly GameController _gameController;
 
         public CharacterMoveStateDie(PlayerCharacter character) : base(character)
         {
@@ -18,12 +18,12 @@ namespace GameCore.Character.MoveStates
 
         public override void OnEnter(CharacterMoveStateType prevState)
         {
-            _runtimeGameState.SpeedMultiplier = 0f;
+            _gameController.SpeedMultiplier = 0f;
         }
 
         public override void OnExit(CharacterMoveStateType nextState)
         {
-            _runtimeGameState.SpeedMultiplier = 1f;
+            _gameController.SpeedMultiplier = 1f;
         }
     }
 }

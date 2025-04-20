@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b6dcefc25a43cb91545a4082d5fc0a, type: 3}
   m_Name: GameWindows
   m_EditorClassIdentifier: 
-  Windows: []
+  Windows:
+  - {fileID: 3751649531308029276, guid: 52e1308676daadd41b99d1c1b03d8712, type: 3}
+  - {fileID: 342966469432901831, guid: 1553d60de64632e4ebd1755d2e6eda08, type: 3}

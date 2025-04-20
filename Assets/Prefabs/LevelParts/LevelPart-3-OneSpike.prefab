@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2244347513165553570}
   - component: {fileID: 6860929017986628062}
   m_Layer: 0
-  m_Name: LevelPart-2
+  m_Name: LevelPart-3-OneSpike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
