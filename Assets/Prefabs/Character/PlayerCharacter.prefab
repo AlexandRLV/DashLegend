@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: 0
+  Rigidbody: {fileID: 1319033774714921728}
   Parameters: {fileID: 11400000, guid: 86f53c17e6915ed40bba9d3526351c29, type: 2}
 --- !u!54 &1319033774714921728
 Rigidbody:

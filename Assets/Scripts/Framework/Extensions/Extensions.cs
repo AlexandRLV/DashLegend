@@ -6,12 +6,6 @@ namespace Framework.Extensions
     public static class Extensions
     {
         private static StringBuilder _stringBuilder;
-        
-        public static void ToLocalZero(this Transform transform)
-        {
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
-        }
 
         public static Quaternion FlatRotation(this Transform transform)
         {
@@ -24,6 +18,20 @@ namespace Framework.Extensions
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             transform.localScale = Vector3.one;
+        }
+
+        public static void SetYPosition(this Transform transform, float value)
+        {
+            var position = transform.position;
+            position.y = value;
+            transform.position = position;
+        }
+
+        public static void SetYPosition(this Rigidbody rigidbody, float value)
+        {
+            var position = rigidbody.position;
+            position.y = value;
+            rigidbody.position = position;
         }
 
         public static bool IsNullOrWhitespace(this string value) => string.IsNullOrWhiteSpace(value);

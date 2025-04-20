@@ -475,6 +475,7 @@ MonoBehaviour:
   _loadingScreen: {fileID: 219475949}
   _uiRoot: {fileID: 397713470}
   _uiCamera: {fileID: 621439592}
+  _targetFps: 60
 --- !u!114 &228651345
 MonoBehaviour:
   m_ObjectHideFlags: 0

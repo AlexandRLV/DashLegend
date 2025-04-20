@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 712b800b1f674e7eb70a4ca397d8e506, type: 3}
-  m_Name: LevelPartsConfig
+  m_Name: LevelGeneratorConfig
   m_EditorClassIdentifier: 
-  EmptyPartsSpawnTime: 5
+  EmptyPartsSpawnTime: 1
   CoverDistance: 80
   DestroyDistance: 20
   EmptyParts:
@@ -39,7 +39,7 @@ MonoBehaviour:
     PartPrefab: {fileID: 6860929017986628062, guid: 5cbc526507e2e544f8520b3716c7404f,
       type: 3}
   MenuLevelParts:
-  - <Chance>k__BackingField: 0.6
+  - <Chance>k__BackingField: 0
     PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
       type: 3}
   - <Chance>k__BackingField: 0.3

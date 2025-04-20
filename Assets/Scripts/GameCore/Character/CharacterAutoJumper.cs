@@ -44,7 +44,9 @@ namespace GameCore.Character
             if (!_playerCharacter.MoveValues.IsAutoRun)
                 return;
 
-            if (!Physics.Raycast(transform.position + Vector3.up * _characterParameters.AutoJumpCheckUpOffset, transform.forward, out var hit, _characterParameters.AutoJumpCheckDistance))
+            var origin = transform.position + Vector3.up * _characterParameters.AutoJumpCheckUpOffset;
+            Debug.DrawLine(origin, origin + transform.forward * _characterParameters.AutoJumpCheckDistance);
+            if (!Physics.Raycast(origin, transform.forward, out var hit, _characterParameters.AutoJumpCheckDistance))
                 return;
             
             if (hit.colliderInstanceID == 0)

@@ -17,7 +17,7 @@ namespace GameCore.Character.MoveStates
         
         public override void OnExit(CharacterMoveStateType nextState)
         {
-            Character.transform.SetYPosition(Character.MoveValues.StartJumpY);
+            Character.Rigidbody.SetYPosition(Character.MoveValues.StartJumpY);
         }
 
         public override void Update()
@@ -25,7 +25,7 @@ namespace GameCore.Character.MoveStates
             Character.MoveValues.JumpTimer += Time.deltaTime;
             float t = Character.MoveValues.JumpTimer / Character.Parameters.TotalJumpTime;
             float y = Mathf.Lerp(Character.MoveValues.StartJumpY, Character.MoveValues.EndJumpY, Character.Parameters.JumpCurve.Evaluate(t));
-            Character.transform.SetYPosition(y);
+            Character.Rigidbody.SetYPosition(y);
         }
     }
 }

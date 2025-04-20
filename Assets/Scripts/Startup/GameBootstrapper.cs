@@ -19,9 +19,11 @@ namespace Startup
         [SerializeField] private LoadingScreen _loadingScreen;
         [SerializeField] private UiRoot _uiRoot;
         [SerializeField] private Camera _uiCamera;
+        [SerializeField] private int _targetFps;
 
         protected override async UniTask OnAwake()
         {
+            Application.targetFrameRate = _targetFps;
             DontDestroyOnLoad(_uiRoot.gameObject);
             DontDestroyOnLoad(_uiCamera.gameObject);
             

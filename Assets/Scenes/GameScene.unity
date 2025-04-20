@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43ee977a2d0487a9460132871c1c435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _groundYOffset: 0.25
   _playerCharacterPrefab: {fileID: 8881649478812162170, guid: 689f47f8f15f33147aab4cb26f4577cf,
     type: 3}
   _characterVisualsPrefab: {fileID: 8768730962108451055, guid: f6e56ab63a7cb3140996cc1f3083253a,

@@ -10,6 +10,7 @@ namespace Startup.LevelInitializers
 {
     public class PlayerInitializer : InitializerBase
     {
+        [SerializeField] private float _groundYOffset;
         [SerializeField] private PlayerCharacter _playerCharacterPrefab;
         [SerializeField] private CharacterVisuals _characterVisualsPrefab;
         [SerializeField] private GameObject _playerShadowPrefab;
@@ -29,10 +30,12 @@ namespace Startup.LevelInitializers
             var visuals = PrefabMonoPool<CharacterVisuals>.GetPrefabInstance(_characterVisualsPrefab);
             
             var character = GameContainer.Current.InstantiateAndResolve(_playerCharacterPrefab);
-            character.Initialize(visuals);
+            character.transform.position = Vector3.up * _groundYOffset;
+            character.Initialize(visuals, _groundYOffset);
             GameContainer.Current.Register(character);
 
             var shadow = PrefabGameObjectPool.GetPrefabInstance(_playerShadowPrefab);
+            shadow.transform.position = Vector3.up * _groundYOffset;
             
             return UniTask.CompletedTask;
         }

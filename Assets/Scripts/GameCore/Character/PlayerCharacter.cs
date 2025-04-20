@@ -15,6 +15,7 @@ namespace GameCore.Character
         public bool IsDead;
         public CharacterMoveValues MoveValues;
 
+        [SerializeField] public Rigidbody Rigidbody;
         [SerializeField] public CharacterParameters Parameters;
 
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
@@ -24,13 +25,14 @@ namespace GameCore.Character
 
         private CharacterStateMachine<CharacterMoveStateBase, CharacterMoveStateType> _stateMachine;
 
-        public void Initialize(CharacterVisuals visuals)
+        public void Initialize(CharacterVisuals visuals, float startYPosition)
         {
             MoveValues = new CharacterMoveValues
             {
-                StartJumpY = transform.position.y,
-                EndJumpY = transform.position.y + Parameters.JumpHeight
+                StartJumpY = startYPosition,
+                EndJumpY = startYPosition + Parameters.JumpHeight
             };
+            Debug.Log($"Start y: {MoveValues.StartJumpY}");
             
             _visuals = visuals;
             _hasVisuals = _visuals != null;
@@ -50,19 +52,22 @@ namespace GameCore.Character
         {
             _stateMachine.ForceSetState(CharacterMoveStateType.Run, true);
             IsDead = false;
-            transform.position = transform.position.WithY(MoveValues.StartJumpY);
+            Rigidbody.SetYPosition(MoveValues.StartJumpY);
         }
 
         private void Update()
         {
-            _stateMachine.Update();
-            _stateMachine.CheckStates(true);
-            
             if (_hasVisuals)
             {
                 _visuals.PlayAnimation(_stateMachine.CurrentState.AnimationType);
                 _visuals.transform.SetPositionAndRotation(transform.position, transform.rotation);
             }
+        }
+
+        private void FixedUpdate()
+        {
+            _stateMachine.Update();
+            _stateMachine.CheckStates(true);
         }
 
         public void OnTrigger(Collider other)
