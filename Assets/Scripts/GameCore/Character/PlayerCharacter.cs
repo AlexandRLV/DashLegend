@@ -1,4 +1,5 @@
-﻿using Framework;
+﻿using System;
+using Framework;
 using Framework.CharacterStateMachine;
 using Framework.DI;
 using Framework.Extensions;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace GameCore.Character
 {
-    public class PlayerCharacter : MonoBehaviour
+    public class PlayerCharacter : MonoBehaviour, IMessageListener<PlayerDieMessage>, IDisposable
     {
         public bool IsDead;
         public CharacterMoveValues MoveValues;
@@ -41,6 +42,8 @@ namespace GameCore.Character
             _stateMachine.States.Add(new CharacterMoveStateDie(this));
             
             _stateMachine.ForceSetState(CharacterMoveStateType.Run, true);
+            
+            _localMessageBroker.Subscribe(this);
         }
 
         public void Revive()
@@ -64,17 +67,24 @@ namespace GameCore.Character
 
         public void OnTrigger(Collider other)
         {
-            if (MoveValues.IsAutoRun)
+            if (MoveValues.IsAutoRun) return;
+            if (IsDead) return;
+            if (other.GetComponent<Obstacle>() == null)
                 return;
             
-            if (IsDead)
-                return;
-            
-            if (other.GetComponent<Obstacle>() != null)
-            {
-                IsDead = true;
-                _localMessageBroker.TriggerEmpty<PlayerDeadMessage>();
-            }
+            IsDead = true;
+            _localMessageBroker.TriggerEmpty<PlayerDeadMessage>();
+        }
+
+        public void OnMessage(in PlayerDieMessage message)
+        {
+            IsDead = true;
+            _localMessageBroker.TriggerEmpty<PlayerDeadMessage>();
+        }
+
+        public void Dispose()
+        {
+            _localMessageBroker.Unsubscribe(this);
         }
     }
 }

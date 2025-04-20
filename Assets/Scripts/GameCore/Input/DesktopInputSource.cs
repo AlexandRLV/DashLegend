@@ -1,7 +1,9 @@
 ﻿using System;
+using Framework;
 using Framework.DI;
 using Framework.GameStateMachine;
 using Framework.MonoUpdate;
+using LocalMessages;
 using Startup.GameStates;
 using UnityEngine;
 
@@ -12,6 +14,7 @@ namespace GameCore.Input
         [Inject] private readonly MonoUpdater _monoUpdater;
         [Inject] private readonly InputState _inputState;
         [Inject] private readonly GameStateMachine _gameStateMachine;
+        [Inject] private readonly LocalMessageBroker _localMessageBroker;
 
         public bool JumpPressed { get; private set; }
 
@@ -32,6 +35,9 @@ namespace GameCore.Input
             JumpPressed = UnityEngine.Input.GetKeyDown(KeyCode.Space);
             if (JumpPressed && !_gameStateMachine.IsInState<PlayGameStateData>())
                 _gameStateMachine.SwitchToState<PlayGameStateData>();
+            
+            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
+                _localMessageBroker.TriggerEmpty<PlayerDieMessage>();
         }
     }
 }
