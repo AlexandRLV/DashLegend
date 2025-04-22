@@ -17,14 +17,10 @@ namespace Startup.LevelInitializers
         
         public override UniTask Initialize()
         {
-            var inputState = GameContainer.Current.Create<InputState>();
-            inputState.Initialize();
-            GameContainer.Current.Register(inputState);
+            GameContainer.Current.CreateAndRegister<InputState>();
 
 #if UNITY_EDITOR
-            var desktopInputReader = GameContainer.Current.Create<DesktopInputSource>();
-            desktopInputReader.Initialize();
-            GameContainer.Current.AddDisposable(desktopInputReader);
+            GameContainer.Current.CreateAndRegister<DesktopInputSource>();
 #endif
             
             var visuals = PrefabMonoPool<CharacterVisuals>.GetPrefabInstance(_characterVisualsPrefab);

@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937baf1dc0b14590b709c0b3a1cb8002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <HalfLength>k__BackingField: 4
+  HalfLength: 4
+  CollectablePlaces: []
 --- !u!1001 &9071368646745989406
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Framework;
 using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
+using LocalMessages;
 using UnityEngine;
 
 namespace GameCore.Level
@@ -19,6 +21,7 @@ namespace GameCore.Level
         [SerializeField] private LevelGeneratorConfig _levelGeneratorConfig;
 
         [Inject] private readonly GameController _gameController;
+        [Inject] private readonly LocalMessageBroker _localMessageBroker;
         
         private LevelGeneratorMode _mode;
 
@@ -45,6 +48,12 @@ namespace GameCore.Level
             
             foreach (var levelPart in _partsToDestroy)
             {
+                var message = new LevelPartWillBeRemovedMessage
+                {
+                    Value = levelPart
+                };
+                _localMessageBroker.Trigger(message);
+                
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
             }
@@ -86,6 +95,12 @@ namespace GameCore.Level
         {
             foreach (var levelPart in _partsToDestroy)
             {
+                var message = new LevelPartWillBeRemovedMessage
+                {
+                    Value = levelPart
+                };
+                _localMessageBroker.Trigger(message);
+                
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
             }
@@ -93,9 +108,15 @@ namespace GameCore.Level
 
         private void SpawnNewParts(float furthestCoveredZ)
         {
-            while (furthestCoveredZ < _levelGeneratorConfig.CoverDistance)
+            int maxTries = 1000;
+            int tries = 0;
+            while (furthestCoveredZ < _levelGeneratorConfig.CoverDistance && tries < maxTries)
             {
+                tries++;
                 var part = GetAvailableParts().GetRandomWithChance();
+                if (part.PartPrefab.HalfLength <= 0f)
+                    continue;
+                
                 var position = transform.position + Vector3.forward * (furthestCoveredZ + part.PartPrefab.HalfLength);
                 var levelPart = PrefabMonoPool<LevelPart>.GetPrefabInstance(part.PartPrefab);
 
@@ -106,6 +127,18 @@ namespace GameCore.Level
                 levelPart.transform.position = position;
                 _spawnedParts.Add(levelPart);
                 furthestCoveredZ += levelPart.HalfLength * 2f;
+                
+                var message = new LevelPartPlacedMessage
+                {
+                    Value = levelPart
+                };
+                _localMessageBroker.Trigger(message);
+            }
+
+            if (tries >= maxTries)
+            {
+                Debug.LogError("[LevelGenerator] In 1000 tries cover distance didn't covered - wrong prefabs configuration");
+                Clear();
             }
         }
 

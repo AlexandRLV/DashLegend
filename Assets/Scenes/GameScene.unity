@@ -464,6 +464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0677ec0f94e049589cc683214708136c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectablesConfig: {fileID: 11400000, guid: a21d40eeec03a3f43826ea7802bda62a,
+    type: 2}
   _levelGeneratorPrefab: {fileID: 4746643154117514754, guid: 49e450a007eeefc42859f84b676f4ddf,
     type: 3}
 --- !u!114 &1164932062

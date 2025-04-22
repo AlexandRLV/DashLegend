@@ -7,7 +7,7 @@ using LocalMessages;
 
 namespace GameCore
 {
-    public class GameController : IDisposable, IMessageListener<PlayerDeadMessage>
+    public class GameController : IInitializable, IDisposable, IMessageListener<PlayerDeadMessage>
     {
         public float RunSpeed => _gameConfig.DefaultRunSpeed * SpeedMultiplier;
         

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Framework
 {
@@ -97,6 +98,7 @@ namespace Framework
 
         public void Trigger<T>(in T message) where T : struct
         {
+            bool messageHandled = false;
             var type = typeof(T);
             if (_actionHandlers.TryGetValue(type, out var iContainer))
             {
@@ -105,6 +107,7 @@ namespace Framework
 
                 foreach (var listener in container.Listeners)
                 {
+                    messageHandled = true;
                     listener.Invoke(message);
                 }
             }
@@ -116,9 +119,13 @@ namespace Framework
                 
                 foreach (var listener in container.Listeners)
                 {
+                    messageHandled = true;
                     listener.OnMessage(message);
                 }
             }
+            
+            if (!messageHandled)
+                Debug.LogWarning($"[LocalMessageBroker] No handler for message type {type.Name}");
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GameCore.Input
 {
-    public class DesktopInputSource : IDisposable, IUpdatable, IInputSource
+    public class DesktopInputSource : IInitializable, IDisposable, IUpdatable, IInputSource
     {
         [Inject] private readonly MonoUpdater _monoUpdater;
         [Inject] private readonly InputState _inputState;

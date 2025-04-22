@@ -5,7 +5,7 @@ using Framework.MonoUpdate;
 
 namespace GameCore.Input
 {
-    public class InputState : IUpdatable, IDisposable
+    public class InputState : IInitializable, IUpdatable, IDisposable
     {
         public bool JumpPressed;
 

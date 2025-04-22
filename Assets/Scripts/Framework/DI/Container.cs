@@ -95,12 +95,20 @@ namespace Framework.DI
             }
         }
 
-        // Method for creating instance of common C# class
         public T Create<T>()
         {
             var type = typeof(T);
             var instance = Create(type);
             return (T)instance;
+        }
+
+        public T CreateAndRegister<T>()
+        {
+            var type = typeof(T);
+            var instance = Create(type);
+            var typedInstance = (T)instance;
+            Register(typedInstance);
+            return typedInstance;
         }
 
         public object Create(Type type)
@@ -114,6 +122,9 @@ namespace Framework.DI
             {
                 instance = Activator.CreateInstance(type);
                 InjectToInstance(instance);
+                if (instance is IInitializable initializable)
+                    initializable.Initialize();
+                
                 return instance;
             }
 
@@ -132,6 +143,11 @@ namespace Framework.DI
 
             instance = constructor.Invoke(parametersValues);
             InjectToInstance(instance);
+            {
+                if (instance is IInitializable initializable)
+                    initializable.Initialize();
+            }
+            
             return instance;
         }
         
@@ -140,6 +156,9 @@ namespace Framework.DI
         {
             var spawnedObject = PrefabMonoPool<T>.GetPrefabInstance(prefab);
             InjectToInstance(spawnedObject);
+            if (spawnedObject is IInitializable initializable)
+                initializable.Initialize();
+            
             return spawnedObject;
         }
         
@@ -147,6 +166,9 @@ namespace Framework.DI
         {
             var spawnedObject = PrefabMonoPool<T>.GetPrefabInstanceForParent(prefab, parent);
             InjectToInstance(spawnedObject);
+            if (spawnedObject is IInitializable initializable)
+                initializable.Initialize();
+            
             return spawnedObject;
         }
 
@@ -155,6 +177,9 @@ namespace Framework.DI
             var gameObject = new GameObject(name);
             var instance = gameObject.AddComponent<T>();
             InjectToInstance(instance);
+            if (instance is IInitializable initializable)
+                initializable.Initialize();
+            
             return instance;
         }
 

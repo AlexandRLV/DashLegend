@@ -2,7 +2,7 @@
 {
     public enum CurrencyType
     {
-        Coins,
-        Stars,
+        Coins = 1,
+        Stars = 2,
     }
 }
