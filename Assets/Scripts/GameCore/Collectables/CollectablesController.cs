@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Framework;
 using Framework.DI;
+using Framework.Extensions;
 using Framework.Pools;
 using GameCore.Level;
 using LocalMessages;
@@ -64,8 +65,9 @@ namespace GameCore.Collectables
                     continue;
                 }
 
-                var instance = PrefabMonoPool<BaseCollectable>.GetPrefabInstance(prefab);
-                instance.transform.SetPositionAndRotation(place.Position.position, place.Position.rotation);
+                var instance = GameContainer.Current.InstantiateAndResolve(prefab);
+                instance.transform.SetParent(place.transform);
+                instance.transform.MoveToLocalZero();
                 message.Value.SpawnedCollectables.Add(instance);
             }
         }

@@ -27,6 +27,18 @@ namespace Framework.Extensions
             transform.position = position;
         }
 
+        public static void SetYLocalPosition(this Transform transform, float value)
+        {
+            var position = transform.localPosition;
+            position.y = value;
+            transform.localPosition = position;
+        }
+
+        public static void CopyPositionAndRotation(this Transform transform, Transform source)
+        {
+            transform.SetPositionAndRotation(source.position, source.rotation);
+        }
+
         public static void SetYPosition(this Rigidbody rigidbody, float value)
         {
             var position = rigidbody.position;

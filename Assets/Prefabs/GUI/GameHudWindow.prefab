@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5571754040473611732}
   - component: {fileID: 866988756264191373}
   - component: {fileID: 8227500951774465882}
+  - component: {fileID: 3753185952721437041}
   m_Layer: 5
   m_Name: text-score
   m_TagString: Untagged
@@ -135,6 +136,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3753185952721437041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198440557760864832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ae5fd707904fbbac358b1d8995049b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currencyType: 1
+  _amountText: {fileID: 8227500951774465882}
 --- !u!1 &1061894977921956204
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +186,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 258, y: -60}
-  m_SizeDelta: {x: 0, y: 120}
+  m_SizeDelta: {x: 366.72, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2556600035843544949
 CanvasRenderer:
