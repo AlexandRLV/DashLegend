@@ -1,24 +1,16 @@
-﻿using System;
-using Framework.Extensions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameCore.Level
 {
-    [Serializable]
-    public class LevelPartContainer : ICollectionWithChanceItem
-    {
-        [field: SerializeField] public float Chance { get; private set; }
-        [SerializeField] public LevelPart PartPrefab;
-    }
     
-    [CreateAssetMenu(menuName = "Configs/Level Parts")]
+    [CreateAssetMenu(menuName = "Configs/Level Generator")]
     public class LevelGeneratorConfig : ScriptableObject
     {
         [SerializeField] public float EmptyPartsSpawnTime;
         [SerializeField] public float CoverDistance;
         [SerializeField] public float DestroyDistance;
-        [SerializeField] public LevelPartContainer[] EmptyParts;
-        [SerializeField] public LevelPartContainer[] GameLevelParts;
-        [SerializeField] public LevelPartContainer[] MenuLevelParts;
+        [SerializeField] public LevelPartsConfig EmptyConfig;
+        [SerializeField] public LevelPartsConfig GameLevelConfig;
+        [SerializeField] public LevelPartsConfig MenuLevelConfig;
     }
 }

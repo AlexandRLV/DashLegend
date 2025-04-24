@@ -145,13 +145,13 @@ namespace GameCore.Level
         private LevelPartContainer[] GetAvailableParts()
         {
             if (_passedTime < _levelGeneratorConfig.EmptyPartsSpawnTime)
-                return _levelGeneratorConfig.EmptyParts;
+                return _levelGeneratorConfig.EmptyConfig.Parts;
             
             return _mode switch
             {
-                LevelGeneratorMode.Game => _levelGeneratorConfig.GameLevelParts,
-                LevelGeneratorMode.Menu => _levelGeneratorConfig.MenuLevelParts,
-                _ => _levelGeneratorConfig.EmptyParts,
+                LevelGeneratorMode.Game => _levelGeneratorConfig.GameLevelConfig.Parts,
+                LevelGeneratorMode.Menu => _levelGeneratorConfig.MenuLevelConfig.Parts,
+                _ => _levelGeneratorConfig.EmptyConfig.Parts,
             };
         }
     }

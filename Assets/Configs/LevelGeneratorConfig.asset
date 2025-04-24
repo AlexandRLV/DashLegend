@@ -12,57 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712b800b1f674e7eb70a4ca397d8e506, type: 3}
   m_Name: LevelGeneratorConfig
   m_EditorClassIdentifier: 
-  EmptyPartsSpawnTime: 1
+  EmptyPartsSpawnTime: 1.5
   CoverDistance: 80
   DestroyDistance: 20
-  EmptyParts:
-  - <Chance>k__BackingField: 0.5
-    PartPrefab: {fileID: 1714454046044486947, guid: 07302a6aecd503f44a5dd73085601245,
-      type: 3}
-  - <Chance>k__BackingField: 0.5
-    PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
-      type: 3}
-  GameLevelParts:
-  - <Chance>k__BackingField: 0.2
-    PartPrefab: {fileID: 1714454046044486947, guid: 07302a6aecd503f44a5dd73085601245,
-      type: 3}
-  - <Chance>k__BackingField: 0.15
-    PartPrefab: {fileID: 1714454046044486947, guid: 7f8f3d4b59b603247a48ed7f9d575aed,
-      type: 3}
-  - <Chance>k__BackingField: 0.05
-    PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
-      type: 3}
-  - <Chance>k__BackingField: 0.1
-    PartPrefab: {fileID: 1714454046044486947, guid: 42537721359db1c48ad4439dc05b42c3,
-      type: 3}
-  - <Chance>k__BackingField: 0.2
-    PartPrefab: {fileID: 6860929017986628062, guid: c06db588ee31b5742b28821d0f8aa36f,
-      type: 3}
-  - <Chance>k__BackingField: 0.15
-    PartPrefab: {fileID: 6860929017986628062, guid: 9d82d5a975c4b1f4ca24fe66898820ae,
-      type: 3}
-  - <Chance>k__BackingField: 0.3
-    PartPrefab: {fileID: 6860929017986628062, guid: 5cbc526507e2e544f8520b3716c7404f,
-      type: 3}
-  - <Chance>k__BackingField: 0.05
-    PartPrefab: {fileID: 6860929017986628062, guid: 0375d9401e9d4a2418122a406aa604b8,
-      type: 3}
-  - <Chance>k__BackingField: 0.1
-    PartPrefab: {fileID: 6860929017986628062, guid: 23073d065541c5b438ea7641e7ed54b9,
-      type: 3}
-  - <Chance>k__BackingField: 0.05
-    PartPrefab: {fileID: 6860929017986628062, guid: 94914a705171a524ea6ec477262ac26a,
-      type: 3}
-  MenuLevelParts:
-  - <Chance>k__BackingField: 0.5
-    PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
-      type: 3}
-  - <Chance>k__BackingField: 0.15
-    PartPrefab: {fileID: 1714454046044486947, guid: 7f8f3d4b59b603247a48ed7f9d575aed,
-      type: 3}
-  - <Chance>k__BackingField: 0.3
-    PartPrefab: {fileID: 6860929017986628062, guid: 5cbc526507e2e544f8520b3716c7404f,
-      type: 3}
-  - <Chance>k__BackingField: 0.1
-    PartPrefab: {fileID: 6860929017986628062, guid: 0375d9401e9d4a2418122a406aa604b8,
-      type: 3}
+  EmptyConfig: {fileID: 11400000, guid: 9c78423561e16f74cbf043aaea71d43f, type: 2}
+  GameLevelConfig: {fileID: 11400000, guid: 57d8421dcb76ec24b8d827b04030363d, type: 2}
+  MenuLevelConfig: {fileID: 11400000, guid: 8fb3fd7f4cffaad4892457e3348bfd4c, type: 2}
