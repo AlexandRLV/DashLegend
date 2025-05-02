@@ -1,4 +1,5 @@
-﻿using Framework.Extensions;
+﻿using Framework.DI;
+using Framework.Extensions;
 using UnityEngine;
 
 namespace GameCore.Collectables
@@ -11,18 +12,21 @@ namespace GameCore.Collectables
         [SerializeField] private float _maxYOffset;
         [SerializeField] private AnimationCurve _curve;
 
+        [Inject] private readonly GameTime _gameTime;
+
         private float _startY;
         private float _timer;
 
         private void Start()
         {
+            GameContainer.Current.InjectToInstance(this);
             _startY = _useWorldPosition ? transform.position.y : transform.localPosition.y;
             _timer = 0f;
         }
 
         private void Update()
         {
-            _timer += Time.deltaTime;
+            _timer += _gameTime.DeltaTime;
             _timer %= _period;
 
             float t = _timer / _period;

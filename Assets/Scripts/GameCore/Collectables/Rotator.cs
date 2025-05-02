@@ -1,4 +1,5 @@
 ﻿using System;
+using Framework.DI;
 using UnityEngine;
 
 namespace GameCore.Collectables
@@ -16,6 +17,13 @@ namespace GameCore.Collectables
         [SerializeField] private float _speed;
         [SerializeField] private Axis _axis;
 
+        [Inject] private readonly GameTime _gameTime;
+
+        private void Start()
+        {
+            GameContainer.Current.InjectToInstance(this);
+        }
+
         private void Update()
         {
             var rotationVector = Vector3.zero;
@@ -26,7 +34,7 @@ namespace GameCore.Collectables
             if ((_axis & Axis.Z) != 0)
                 rotationVector += Vector3.forward;
             
-            float rotationAngle = _speed * Time.deltaTime;
+            float rotationAngle = _speed * _gameTime.DeltaTime;
             transform.rotation *= Quaternion.Euler(rotationVector * rotationAngle);
         }
     }

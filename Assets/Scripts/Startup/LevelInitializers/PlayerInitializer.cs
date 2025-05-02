@@ -13,7 +13,6 @@ namespace Startup.LevelInitializers
         [SerializeField] private float _groundYOffset;
         [SerializeField] private PlayerCharacter _playerCharacterPrefab;
         [SerializeField] private CharacterVisuals _characterVisualsPrefab;
-        [SerializeField] private GameObject _playerShadowPrefab;
         
         public override UniTask Initialize()
         {
@@ -30,9 +29,6 @@ namespace Startup.LevelInitializers
             character.Initialize(visuals, _groundYOffset);
             GameContainer.Current.Register(character);
 
-            var shadow = PrefabGameObjectPool.GetPrefabInstance(_playerShadowPrefab);
-            shadow.transform.position = Vector3.up * _groundYOffset;
-            
             return UniTask.CompletedTask;
         }
 

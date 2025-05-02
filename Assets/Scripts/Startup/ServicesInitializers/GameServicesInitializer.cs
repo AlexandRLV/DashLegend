@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Framework.DI;
 using Framework.Initialization;
+using GameCore;
 
 namespace Startup.ServicesInitializers
 {
@@ -9,6 +10,7 @@ namespace Startup.ServicesInitializers
     {
         public override UniTask Initialize()
         {
+            GameContainer.Current.CreateAndRegister<GameTime>();
             GameContainer.Current.CreateAndRegister<PlayerCurrencyController>();
             return UniTask.CompletedTask;
         }

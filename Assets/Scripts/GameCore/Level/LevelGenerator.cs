@@ -20,6 +20,7 @@ namespace GameCore.Level
 
         [SerializeField] private LevelGeneratorConfig _levelGeneratorConfig;
 
+        [Inject] private readonly GameTime _gameTime;
         [Inject] private readonly GameController _gameController;
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
         
@@ -66,7 +67,7 @@ namespace GameCore.Level
             if (!_enabled)
                 return;
 
-            _passedTime += Time.deltaTime;
+            _passedTime += _gameTime.DeltaTime;
             MoveSpawnedParts(out float furthestCoveredZ);
             CleanupPartsToDelete();
             SpawnNewParts(furthestCoveredZ);
@@ -74,7 +75,7 @@ namespace GameCore.Level
 
         private void MoveSpawnedParts(out float furthestCoveredZ)
         {
-            float passedDistanceThisFrame = _gameController.RunSpeed * Time.deltaTime;
+            float passedDistanceThisFrame = _gameController.RunSpeed * _gameTime.DeltaTime;
             _passedDistance += passedDistanceThisFrame;
             
             _partsToDestroy.Clear();

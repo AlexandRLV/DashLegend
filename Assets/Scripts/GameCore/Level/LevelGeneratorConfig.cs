@@ -2,7 +2,6 @@
 
 namespace GameCore.Level
 {
-    
     [CreateAssetMenu(menuName = "Configs/Level Generator")]
     public class LevelGeneratorConfig : ScriptableObject
     {

@@ -22,7 +22,7 @@ namespace GameCore.Character.MoveStates
 
         public override void Update()
         {
-            Character.MoveValues.JumpTimer += Time.deltaTime;
+            Character.MoveValues.JumpTimer += GameTime.DeltaTime;
             float t = Character.MoveValues.JumpTimer / Character.Parameters.TotalJumpTime;
             float y = Mathf.Lerp(Character.MoveValues.StartJumpY, Character.MoveValues.EndJumpY, Character.Parameters.JumpCurve.Evaluate(t));
             Character.Rigidbody.SetYPosition(y);

@@ -5,7 +5,6 @@ using System.Reflection;
 using Framework.Pools;
 using UnityEngine;
 using UnityEngine.Pool;
-using Object = UnityEngine.Object;
 
 namespace Framework.DI
 {

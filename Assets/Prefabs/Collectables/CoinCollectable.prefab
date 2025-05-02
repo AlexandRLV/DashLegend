@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5021592747093343940}
   - component: {fileID: 9185998217009921669}
   - component: {fileID: 8024503695077632917}
+  - component: {fileID: 403884970516695822}
   m_Layer: 0
   m_Name: CoinCollectable
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &403884970516695822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007950295784058430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe6ea584b854ead9dc0b0b687756323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowScale: 0.7
 --- !u!1001 &3114132197841950135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,6 +220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: e8e1f2df2da4a3e49ba3e9f5d0d5b558,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: e8e1f2df2da4a3e49ba3e9f5d0d5b558,
         type: 3}

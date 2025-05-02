@@ -2,6 +2,7 @@
 using Framework.DI;
 using Framework.GameStateMachine;
 using Framework.GUI;
+using GameCore;
 using GameCore.Character;
 using GameCore.Level;
 using GUI;
@@ -15,6 +16,7 @@ namespace Startup.GameStates
         [Inject] private readonly WindowsSystem _windowsSystem;
         [Inject] private readonly LevelGenerator _levelGenerator;
         [Inject] private readonly PlayerCharacter _playerCharacter;
+        [Inject] private readonly GameController _gameController;
         
         public UniTask OnEnter(PlayGameStateData data)
         {
@@ -29,6 +31,8 @@ namespace Startup.GameStates
             
             _levelGenerator.StartSpawn(LevelGeneratorMode.Game);
             _playerCharacter.MoveValues.IsAutoRun = false;
+            _gameController.ResetInGameState(true);
+            
             return UniTask.CompletedTask;
         }
 

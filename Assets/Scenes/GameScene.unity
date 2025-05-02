@@ -427,6 +427,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164932060}
   - component: {fileID: 1164932062}
+  - component: {fileID: 1164932065}
   - component: {fileID: 1164932064}
   - component: {fileID: 1164932061}
   - component: {fileID: 1164932063}
@@ -481,6 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initializers:
+  - {fileID: 1164932065}
   - {fileID: 1164932064}
   - {fileID: 1164932061}
   - {fileID: 1164932063}
@@ -501,8 +503,6 @@ MonoBehaviour:
     type: 3}
   _characterVisualsPrefab: {fileID: 8768730962108451055, guid: f6e56ab63a7cb3140996cc1f3083253a,
     type: 3}
-  _playerShadowPrefab: {fileID: 331490851785766354, guid: e324dfef9ee1133409185ad93e5e9df3,
-    type: 3}
 --- !u!114 &1164932064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +516,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameConfig: {fileID: 11400000, guid: 81389072f1b02d64cae4aef314611c47, type: 2}
+--- !u!114 &1164932065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164932059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ff55ada57b4460a409efac870ac607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowConfig: {fileID: 11400000, guid: fff4de0831106614fb5d3b55f34f5e26, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6366973861208859577}
   - component: {fileID: 8768730962108451055}
+  - component: {fileID: 6967827022891882024}
   m_Layer: 0
   m_Name: CharacterVisuals
   m_TagString: Untagged
@@ -46,6 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6772993185516247173}
+--- !u!114 &6967827022891882024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517572327860328970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe6ea584b854ead9dc0b0b687756323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowScale: 1
 --- !u!1001 &8945066253839501642
 PrefabInstance:
   m_ObjectHideFlags: 0
