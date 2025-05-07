@@ -1,4 +1,5 @@
 ﻿using System;
+using Currency;
 using Framework;
 using Framework.CharacterStateMachine;
 using Framework.DI;
@@ -19,6 +20,7 @@ namespace GameCore.Character
         [SerializeField] public CharacterParameters Parameters;
 
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
+        [Inject] private readonly PlayerCurrencyController _playerCurrencyController;
         
         private bool _hasVisuals;
         private CharacterVisuals _visuals;
@@ -76,6 +78,14 @@ namespace GameCore.Character
             if (IsDead) return;
             if (other.GetComponent<Obstacle>() == null)
                 return;
+
+            int lives = _playerCurrencyController.GetCurrencyAmount(CurrencyType.Lives);
+            if (lives > 0)
+            {
+                // TODO: play effect
+                _playerCurrencyController.AddCurrency(CurrencyType.Lives, -1);
+                return;
+            }
             
             IsDead = true;
             _localMessageBroker.TriggerEmpty<PlayerDeadMessage>();

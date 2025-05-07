@@ -4,5 +4,6 @@
     {
         Coins = 1,
         Stars = 2,
+        Lives = 3,
     }
 }
