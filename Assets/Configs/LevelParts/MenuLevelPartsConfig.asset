@@ -16,10 +16,10 @@ MonoBehaviour:
   - <Chance>k__BackingField: 0.7
     PartPrefab: {fileID: 1714454046044486947, guid: 07302a6aecd503f44a5dd73085601245,
       type: 3}
-  - <Chance>k__BackingField: 0.8
+  - <Chance>k__BackingField: 0.5
     PartPrefab: {fileID: 1714454046044486947, guid: 7f8f3d4b59b603247a48ed7f9d575aed,
       type: 3}
-  - <Chance>k__BackingField: 1.5
+  - <Chance>k__BackingField: 1
     PartPrefab: {fileID: 1714454046044486947, guid: ac733f1539c13604a99f5b074db48a88,
       type: 3}
   - <Chance>k__BackingField: 0.3
@@ -28,7 +28,7 @@ MonoBehaviour:
   - <Chance>k__BackingField: 0.7
     PartPrefab: {fileID: 1714454046044486947, guid: 29d6f12ee018cb648838ecf95c1772e4,
       type: 3}
-  - <Chance>k__BackingField: 0.8
+  - <Chance>k__BackingField: 0.4
     PartPrefab: {fileID: 1714454046044486947, guid: 42537721359db1c48ad4439dc05b42c3,
       type: 3}
   - <Chance>k__BackingField: 1.4
