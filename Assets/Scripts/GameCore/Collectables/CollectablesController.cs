@@ -26,7 +26,7 @@ namespace GameCore.Collectables
             _typeToPrefab = new Dictionary<CollectableType, BaseCollectable>();
             foreach (var container in _collectablesConfig.Collectables)
             {
-                _typeToPrefab.Add(container.Type, container.Prefab);
+                _typeToPrefab.Add(container.Item1, container.Item2);
             }
             
             _localMessageBroker.Subscribe<LevelPartPlacedMessage>(this);

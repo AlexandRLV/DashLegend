@@ -1,5 +1,6 @@
 ﻿using Framework.DI;
 using Framework.Extensions;
+using Framework.Sounds;
 using GameCore.Input;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace GameCore.Character.MoveStates
         public override AnimationType AnimationType => AnimationType.Jump;
 
         [Inject] private readonly InputState _inputState;
+        [Inject] private readonly SoundSystem _soundSystem;
 
         public CharacterMoveStateJump(PlayerCharacter character) : base(character)
         {
@@ -21,6 +23,7 @@ namespace GameCore.Character.MoveStates
 
         public override void OnEnter(CharacterMoveStateType prevState)
         {
+            _soundSystem.PlaySound(SoundType.Jump);
             Character.MoveValues.JumpTimer = 0f;
         }
 

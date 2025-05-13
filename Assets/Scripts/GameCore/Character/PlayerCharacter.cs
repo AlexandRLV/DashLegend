@@ -4,6 +4,7 @@ using Framework;
 using Framework.CharacterStateMachine;
 using Framework.DI;
 using Framework.Extensions;
+using Framework.Sounds;
 using GameCore.Character.MoveStates;
 using GameCore.Level;
 using LocalMessages;
@@ -21,6 +22,7 @@ namespace GameCore.Character
 
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
         [Inject] private readonly PlayerCurrencyController _playerCurrencyController;
+        [Inject] private readonly SoundSystem _soundSystem;
         
         private bool _hasVisuals;
         private CharacterVisuals _visuals;
@@ -79,6 +81,7 @@ namespace GameCore.Character
             if (other.GetComponent<Obstacle>() == null)
                 return;
 
+            _soundSystem.PlaySound(SoundType.Hit);
             int lives = _playerCurrencyController.GetCurrencyAmount(CurrencyType.Lives);
             if (lives > 0)
             {

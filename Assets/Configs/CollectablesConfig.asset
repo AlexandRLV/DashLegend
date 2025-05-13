@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: CollectablesConfig
   m_EditorClassIdentifier: 
   Collectables:
-  - Type: 0
-    Prefab: {fileID: 5021592747093343940, guid: 55ac9775c64dae94e896730dbfc273f0,
-      type: 3}
-  - Type: 1
-    Prefab: {fileID: 5601690176225220390, guid: 7d97e4b019764654694fdc65532708d7,
-      type: 3}
+  - Item1: 0
+    Item2: {fileID: 5021592747093343940, guid: 55ac9775c64dae94e896730dbfc273f0, type: 3}
+  - Item1: 1
+    Item2: {fileID: 5601690176225220390, guid: 7d97e4b019764654694fdc65532708d7, type: 3}
+  CurrencyCollectSounds:
+  - Item1: 1
+    Item2: 7
+  - Item1: 2
+    Item2: 8
+  - Item1: 3
+    Item2: 9

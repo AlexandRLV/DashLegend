@@ -2,6 +2,7 @@
 using Framework.DI;
 using Framework.GameStateMachine;
 using Framework.GUI;
+using Framework.Sounds;
 using GameCore;
 using GameCore.Character;
 using GameCore.Level;
@@ -17,6 +18,7 @@ namespace Startup.GameStates
         [Inject] private readonly LevelGenerator _levelGenerator;
         [Inject] private readonly PlayerCharacter _playerCharacter;
         [Inject] private readonly GameController _gameController;
+        [Inject] private readonly SoundSystem _soundSystem;
         
         public UniTask OnEnter(PlayGameStateData data)
         {
@@ -29,6 +31,8 @@ namespace Startup.GameStates
                 _playerCharacter.Revive();
             }
             
+            _soundSystem.PlaySound(SoundType.StartGame);
+            _soundSystem.PlayMusic(MusicType.Game);
             _levelGenerator.StartSpawn(LevelGeneratorMode.Game);
             _playerCharacter.MoveValues.IsAutoRun = false;
             _gameController.ResetInGameState(true);
