@@ -8,7 +8,7 @@ namespace Framework.GUI
     {
         [Inject] private WindowsSystem _windowsSystem;
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             GameContainer.Current.AddDisposable(this);
         }

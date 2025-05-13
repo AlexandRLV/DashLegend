@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Framework.DI;
 using Framework.Extensions;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Framework.Sounds
 {
-    public class SoundSystem : MonoBehaviour
+    public class SoundSystem : MonoBehaviour, IMessageListener<SettingsChangedMessage>
     {
         [SerializeField] private AudioMixerGroup _soundsMixerGroup;
         [SerializeField] private AudioMixerGroup _musicMixerGroup;
@@ -13,6 +14,9 @@ namespace Framework.Sounds
         [SerializeField] private AudioSource _soundsSource;
         [SerializeField] private AudioSource _musicFirstSource;
         [SerializeField] private AudioSource _musicSecondSource;
+
+        [Inject] private readonly SettingsProvider _settingsProvider;
+        [Inject] private readonly LocalMessageBroker _localMessageBroker;
 
         private MusicType _currentMusicType;
         private float _currentMusicTimer;
@@ -27,8 +31,10 @@ namespace Framework.Sounds
         private Dictionary<SoundType, AudioClip> _sounds;
         private Dictionary<MusicType, AudioClip[]> _music;
 
-        public void Awake()
+        public void Start()
         {
+            _localMessageBroker.Subscribe(this);
+            
             _sounds = new Dictionary<SoundType, AudioClip>();
             _music = new Dictionary<MusicType, AudioClip[]>();
 
@@ -44,6 +50,11 @@ namespace Framework.Sounds
 
             _currentMusicSource = _musicFirstSource;
             _nextMusicSource = _musicSecondSource;
+        }
+
+        private void OnDestroy()
+        {
+            _localMessageBroker.Unsubscribe(this);
         }
 
         private void Update()
@@ -118,6 +129,11 @@ namespace Framework.Sounds
             _nextMusicSource.Play();
 
             _currentMusicTimer = next.length;
+        }
+
+        public void OnMessage(in SettingsChangedMessage message)
+        {
+            // TODO: set volume
         }
     }
 }

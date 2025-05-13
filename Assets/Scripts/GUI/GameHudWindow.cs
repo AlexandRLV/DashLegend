@@ -30,9 +30,10 @@ namespace GUI
         private bool _isGameActive;
         private bool _jumpPressedSkipFrame;
         
-        private void Start()
+        protected override void Start()
         {
-            _settingsButton.onClick.AddListener(OnSettingsPressed);
+            base.Start();
+            // _settingsButton.onClick.AddListener(OnSettingsPressed);
             _pauseButton.onClick.AddListener(OnPausePressed);
             _jumpButton.onClick.AddListener(OnJumpPressed);
             _inputState.RegisterInputSource(this);
@@ -69,7 +70,7 @@ namespace GUI
 
         private void OnSettingsPressed()
         {
-            // TODO: open settings
+            PushWindow<SettingsWindow>();
         }
 
         private void OnPausePressed()

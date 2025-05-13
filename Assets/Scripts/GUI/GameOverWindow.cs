@@ -14,8 +14,9 @@ namespace GUI
 
         [Inject] private readonly GameStateMachine _gameStateMachine;
         
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _pauseButton.onClick.AddListener(OnPausePressed);
             _playButton.onClick.AddListener(OnPlayPressed);
         }
