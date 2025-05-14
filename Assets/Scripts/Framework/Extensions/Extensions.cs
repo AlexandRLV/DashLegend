@@ -13,11 +13,13 @@ namespace Framework.Extensions
             return Quaternion.Euler(0f, eulerY, 0f);
         }
         
-        public static void MoveToLocalZero(this Transform transform)
+        public static void MoveToLocalZero(this Transform transform, bool changeScale = true)
         {
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
-            transform.localScale = Vector3.one;
+            
+            if (changeScale)
+                transform.localScale = Vector3.one;
         }
 
         public static void SetYPosition(this Transform transform, float value)

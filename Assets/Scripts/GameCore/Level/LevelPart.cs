@@ -9,7 +9,22 @@ namespace GameCore.Level
     {
         [SerializeField] public float HalfLength;
         [SerializeField] public CollectablePlace[] CollectablePlaces;
+        [SerializeField] public DecorPart DecorPart;
 
         [NonSerialized] public List<BaseCollectable> SpawnedCollectables;
+
+#if UNITY_EDITOR
+        [ContextMenu("Add decor part")]
+        private void AddDecorPart()
+        {
+            if (DecorPart == null)
+                DecorPart = GetComponent<DecorPart>();
+            
+            if (DecorPart == null)
+                DecorPart = gameObject.AddComponent<DecorPart>();
+            
+            DecorPart.CollectPlaces();
+        }
+#endif
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Framework;
 using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
-using LocalMessages;
+using GameCore.Collectables;
 using UnityEngine;
 
 namespace GameCore.Level
@@ -22,7 +21,8 @@ namespace GameCore.Level
 
         [Inject] private readonly GameTime _gameTime;
         [Inject] private readonly GameController _gameController;
-        [Inject] private readonly LocalMessageBroker _localMessageBroker;
+        [Inject] private readonly LevelDecorSpawner _levelDecorSpawner;
+        [Inject] private readonly CollectablesSpawner _collectablesSpawner;
         
         private LevelGeneratorMode _mode;
 
@@ -49,11 +49,9 @@ namespace GameCore.Level
             
             foreach (var levelPart in _partsToDestroy)
             {
-                var message = new LevelPartWillBeRemovedMessage
-                {
-                    Value = levelPart
-                };
-                _localMessageBroker.Trigger(message);
+                _collectablesSpawner.ProcessDespawnPart(levelPart);
+                if (levelPart.DecorPart != null)
+                    _levelDecorSpawner.ProcessDespawnPart(levelPart.DecorPart);
                 
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
@@ -96,11 +94,9 @@ namespace GameCore.Level
         {
             foreach (var levelPart in _partsToDestroy)
             {
-                var message = new LevelPartWillBeRemovedMessage
-                {
-                    Value = levelPart
-                };
-                _localMessageBroker.Trigger(message);
+                _collectablesSpawner.ProcessDespawnPart(levelPart);
+                if (levelPart.DecorPart != null)
+                    _levelDecorSpawner.ProcessDespawnPart(levelPart.DecorPart);
                 
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
@@ -109,7 +105,7 @@ namespace GameCore.Level
 
         private void SpawnNewParts(float furthestCoveredZ)
         {
-            int maxTries = 1000;
+            const int maxTries = 1000;
             int tries = 0;
             while (furthestCoveredZ < _levelGeneratorConfig.CoverDistance && tries < maxTries)
             {
@@ -129,11 +125,9 @@ namespace GameCore.Level
                 _spawnedParts.Add(levelPart);
                 furthestCoveredZ += levelPart.HalfLength * 2f;
                 
-                var message = new LevelPartPlacedMessage
-                {
-                    Value = levelPart
-                };
-                _localMessageBroker.Trigger(message);
+                _collectablesSpawner.ProcessSpawnPart(levelPart);
+                if (levelPart.DecorPart != null)
+                    _levelDecorSpawner.ProcessSpawnPart(levelPart.DecorPart);
             }
 
             if (tries >= maxTries)

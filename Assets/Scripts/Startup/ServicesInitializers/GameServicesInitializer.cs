@@ -1,5 +1,6 @@
 ﻿using Currency;
 using Cysharp.Threading.Tasks;
+using Framework;
 using Framework.DI;
 using Framework.Initialization;
 using Framework.Sounds;
@@ -16,6 +17,7 @@ namespace Startup.ServicesInitializers
         {
             GameContainer.Current.CreateAndRegister<GameTime>();
             GameContainer.Current.CreateAndRegister<PlayerCurrencyController>();
+            GameContainer.Current.CreateAndRegister<SettingsProvider>();
 
             var soundsSystem = Instantiate(_soundSystem);
             GameContainer.Current.InjectToInstance(soundsSystem);

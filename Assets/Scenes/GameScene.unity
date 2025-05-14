@@ -469,6 +469,7 @@ MonoBehaviour:
     type: 2}
   _levelGeneratorPrefab: {fileID: 4746643154117514754, guid: 49e450a007eeefc42859f84b676f4ddf,
     type: 3}
+  _levelDecorConfig: {fileID: 11400000, guid: c7964e3c6cb8ded4a886ea68fa15cd5d, type: 2}
 --- !u!114 &1164932062
 MonoBehaviour:
   m_ObjectHideFlags: 0

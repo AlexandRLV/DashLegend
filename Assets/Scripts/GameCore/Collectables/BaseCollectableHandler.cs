@@ -10,16 +10,16 @@ namespace GameCore.Collectables
 
     public abstract class BaseCollectableHandler<T> : BaseCollectableHandler, IInitializable, IDisposable where T : BaseCollectable
     {
-        [Inject] private readonly CollectablesController _collectablesController;
+        [Inject] private readonly CollectablesSpawner _collectablesSpawner;
 
         public void Initialize()
         {
-            _collectablesController.RegisterHandler(typeof(T), this);
+            _collectablesSpawner.RegisterHandler(typeof(T), this);
         }
 
         public void Dispose()
         {
-            _collectablesController.UnregisterHandler(typeof(T));
+            _collectablesSpawner.UnregisterHandler(typeof(T));
         }
         
         public override void HandleCollectable(BaseCollectable collectable)

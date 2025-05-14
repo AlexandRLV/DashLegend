@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Framework
 {
-    public class SettingsProvider
+    public class SettingsProvider : IInitializable
     {
         private const string SoundVolumeKey = "SettingsParameterSoundsVolume";
         private const string MusicVolumeKey = "SettingsParameterMusicVolume";
@@ -16,6 +16,11 @@ namespace Framework
         public bool MusicOn;
 
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
+
+        public void Initialize()
+        {
+            Load();
+        }
 
         public void TriggerChange()
         {
@@ -32,7 +37,7 @@ namespace Framework
             TriggerChange();
         }
 
-        public void Load()
+        private void Load()
         {
             SoundsVolume = PlayerPrefsUtils.GetKeyOrDefault(SoundVolumeKey, 1f);
             MusicVolume = PlayerPrefsUtils.GetKeyOrDefault(MusicVolumeKey, 1f);
