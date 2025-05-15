@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HalfLength: 4
   CollectablePlaces: []
-  DecorPart: {fileID: 3847485099148441145}
+  PropsPart: {fileID: 3847485099148441145}
 --- !u!114 &3847485099148441145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 34977705154406457}
   - {fileID: 51485450081883508}
   - {fileID: 1517444082057978306}
+  ObstaclePlaces: []
 --- !u!1001 &9071368646745989406
 PrefabInstance:
   m_ObjectHideFlags: 0

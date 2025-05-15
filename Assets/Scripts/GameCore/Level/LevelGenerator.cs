@@ -3,6 +3,7 @@ using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
 using GameCore.Collectables;
+using GameCore.Level.Props;
 using UnityEngine;
 
 namespace GameCore.Level
@@ -21,7 +22,7 @@ namespace GameCore.Level
 
         [Inject] private readonly GameTime _gameTime;
         [Inject] private readonly GameController _gameController;
-        [Inject] private readonly LevelDecorSpawner _levelDecorSpawner;
+        [Inject] private readonly LevelPropsSpawner _levelPropsSpawner;
         [Inject] private readonly CollectablesSpawner _collectablesSpawner;
         
         private LevelGeneratorMode _mode;
@@ -50,8 +51,8 @@ namespace GameCore.Level
             foreach (var levelPart in _partsToDestroy)
             {
                 _collectablesSpawner.ProcessDespawnPart(levelPart);
-                if (levelPart.DecorPart != null)
-                    _levelDecorSpawner.ProcessDespawnPart(levelPart.DecorPart);
+                if (levelPart.PropsPart != null)
+                    _levelPropsSpawner.ProcessDespawnPart(levelPart.PropsPart);
                 
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
@@ -95,8 +96,8 @@ namespace GameCore.Level
             foreach (var levelPart in _partsToDestroy)
             {
                 _collectablesSpawner.ProcessDespawnPart(levelPart);
-                if (levelPart.DecorPart != null)
-                    _levelDecorSpawner.ProcessDespawnPart(levelPart.DecorPart);
+                if (levelPart.PropsPart != null)
+                    _levelPropsSpawner.ProcessDespawnPart(levelPart.PropsPart);
                 
                 PrefabMonoPool<LevelPart>.ReturnInstance(levelPart);
                 _spawnedParts.Remove(levelPart);
@@ -126,8 +127,8 @@ namespace GameCore.Level
                 furthestCoveredZ += levelPart.HalfLength * 2f;
                 
                 _collectablesSpawner.ProcessSpawnPart(levelPart);
-                if (levelPart.DecorPart != null)
-                    _levelDecorSpawner.ProcessSpawnPart(levelPart.DecorPart);
+                if (levelPart.PropsPart != null)
+                    _levelPropsSpawner.ProcessSpawnPart(levelPart.PropsPart);
             }
 
             if (tries >= maxTries)

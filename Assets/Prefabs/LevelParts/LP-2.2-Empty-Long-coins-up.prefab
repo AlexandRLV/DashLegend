@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 614188521412470074}
   - {fileID: 6146602935786368364}
   - {fileID: 7646005699483449760}
-  DecorPart: {fileID: 3782240147924447604}
+  PropsPart: {fileID: 3782240147924447604}
 --- !u!114 &3782240147924447604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   - {fileID: 7887148648041122770}
   - {fileID: 7907874954929223327}
   - {fileID: 8649031948786549289}
+  ObstaclePlaces: []
 --- !u!1001 &1219202647275455221
 PrefabInstance:
   m_ObjectHideFlags: 0

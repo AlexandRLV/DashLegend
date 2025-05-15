@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b60274d83747958c9a81e9403e60ad, type: 3}
-  m_Name: LevelDecorConfig
+  m_Name: LevelPropsConfig
   m_EditorClassIdentifier: 
   Decors:
   - Item1: 1
@@ -45,3 +45,9 @@ MonoBehaviour:
     - {fileID: 2370815033398676697, guid: 17b1ab29f037ed440aa481a1fc8cd4d9, type: 3}
     - {fileID: 6904161944899770051, guid: f17239b5f7f94224ca4555550716a999, type: 3}
     - {fileID: 5352058119188606790, guid: 7ff3df90b6a100d439e292cb089c8d60, type: 3}
+  Obstacles:
+  - Item1: 1
+    Item2:
+    - {fileID: 4761831228066686967, guid: 644a7467ad6ef4b4f85c9ea497dbb52a, type: 3}
+    - {fileID: 5446688989268854799, guid: f4b140f00ad347b479e3b30a2ecd7e4f, type: 3}
+    - {fileID: 2920704511027844428, guid: 8cdbf40bf5b74e2468217fc50160aef1, type: 3}

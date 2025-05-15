@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameCore.Level
+namespace GameCore.Level.Props
 {
     [Flags]
     public enum DecorType

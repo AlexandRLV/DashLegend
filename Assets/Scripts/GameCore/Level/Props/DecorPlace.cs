@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameCore.Level
+namespace GameCore.Level.Props
 {
     public class DecorPlace : MonoBehaviour
     {

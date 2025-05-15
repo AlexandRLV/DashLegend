@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameCore.Collectables;
+using GameCore.Level.Props;
 using UnityEngine;
 
 namespace GameCore.Level
@@ -9,21 +10,21 @@ namespace GameCore.Level
     {
         [SerializeField] public float HalfLength;
         [SerializeField] public CollectablePlace[] CollectablePlaces;
-        [SerializeField] public DecorPart DecorPart;
+        [SerializeField] public PropsPart PropsPart;
 
         [NonSerialized] public List<BaseCollectable> SpawnedCollectables;
 
 #if UNITY_EDITOR
-        [ContextMenu("Add decor part")]
-        private void AddDecorPart()
+        [ContextMenu("Add props part")]
+        private void AddPropsPart()
         {
-            if (DecorPart == null)
-                DecorPart = GetComponent<DecorPart>();
+            if (PropsPart == null)
+                PropsPart = GetComponent<PropsPart>();
             
-            if (DecorPart == null)
-                DecorPart = gameObject.AddComponent<DecorPart>();
+            if (PropsPart == null)
+                PropsPart = gameObject.AddComponent<PropsPart>();
             
-            DecorPart.CollectPlaces();
+            PropsPart.CollectPlaces();
         }
 #endif
     }

@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameCore.Level
+namespace GameCore.Level.Props
 {
-    public class DecorPart : MonoBehaviour
+    public class PropsPart : MonoBehaviour
     {
         [SerializeField] public DecorPlace[] DecorPlaces;
-        [NonSerialized] public List<GameObject> SpawnedDecors;
+        [SerializeField] public ObstaclePlace[] ObstaclePlaces;
+        [NonSerialized] public List<GameObject> SpawnedProps;
 
 #if UNITY_EDITOR
         [ContextMenu("Collect places")]
         public void CollectPlaces()
         {
             DecorPlaces = GetComponentsInChildren<DecorPlace>();
+            ObstaclePlaces = GetComponentsInChildren<ObstaclePlace>();
         }
 #endif
     }

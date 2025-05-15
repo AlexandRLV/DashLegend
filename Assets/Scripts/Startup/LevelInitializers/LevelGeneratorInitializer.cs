@@ -4,6 +4,7 @@ using Framework.Initialization;
 using GameCore.Collectables;
 using GameCore.Collectables.HandlerTypes;
 using GameCore.Level;
+using GameCore.Level.Props;
 using UnityEngine;
 
 namespace Startup.LevelInitializers
@@ -12,7 +13,7 @@ namespace Startup.LevelInitializers
     {
         [SerializeField] private CollectablesConfig _collectablesConfig;
         [SerializeField] private LevelGenerator _levelGeneratorPrefab;
-        [SerializeField] private LevelDecorConfig _levelDecorConfig;
+        [SerializeField] private LevelPropsConfig _levelPropsConfig;
         
         public override UniTask Initialize()
         {
@@ -20,7 +21,7 @@ namespace Startup.LevelInitializers
             var collectablesSpawner = new CollectablesSpawner(_collectablesConfig);
             GameContainer.Current.Register(collectablesSpawner);
 
-            var decorSpawner = new LevelDecorSpawner(_levelDecorConfig);
+            var decorSpawner = new LevelPropsSpawner(_levelPropsConfig);
             GameContainer.Current.Register(decorSpawner);
             
             var levelGenerator = GameContainer.Current.InstantiateAndResolve(_levelGeneratorPrefab);
