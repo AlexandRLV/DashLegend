@@ -18,3 +18,4 @@ MonoBehaviour:
   EmptyConfig: {fileID: 11400000, guid: 9c78423561e16f74cbf043aaea71d43f, type: 2}
   GameLevelConfig: {fileID: 11400000, guid: 57d8421dcb76ec24b8d827b04030363d, type: 2}
   MenuLevelConfig: {fileID: 11400000, guid: 8fb3fd7f4cffaad4892457e3348bfd4c, type: 2}
+  SideDecorConfig: {fileID: 11400000, guid: 4872316a130b6714d9205abf5d486494, type: 2}

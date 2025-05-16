@@ -47,6 +47,12 @@ namespace GameCore.Level.Props
             _processingDecorPlaces.Clear();
             foreach (var decorPlace in propsPart.DecorPlaces)
             {
+                if (decorPlace == null)
+                {
+                    Debug.LogError($"[LevelPropsSpawner] Decor place is null, props part: {propsPart.gameObject.name}");
+                    continue;
+                }
+                
                 _processingDecorPlaces.Enqueue(decorPlace);
             }
 
@@ -79,6 +85,11 @@ namespace GameCore.Level.Props
                     decor.GetComponentsInChildren(_requestingDecorPlaces);
                     foreach (var decorPlace in _requestingDecorPlaces)
                     {
+                        if (decorPlace == null)
+                        {
+                            Debug.LogError($"[LevelPropsSpawner] Decor place is null, parent part: {decor.gameObject.name}");
+                            continue;
+                        }
                         _processingDecorPlaces.Enqueue(decorPlace);
                     }
                 }

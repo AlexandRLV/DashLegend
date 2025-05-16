@@ -11,5 +11,6 @@ namespace GameCore.Level
         [SerializeField] public LevelPartsConfig EmptyConfig;
         [SerializeField] public LevelPartsConfig GameLevelConfig;
         [SerializeField] public LevelPartsConfig MenuLevelConfig;
+        [SerializeField] public LevelPartsConfig SideDecorConfig;
     }
 }
