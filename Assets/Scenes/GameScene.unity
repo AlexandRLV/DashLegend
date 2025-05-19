@@ -447,7 +447,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enableCurve: 1
-  _curveStrength: 0.01
+  _curveStrength: 0.005
+  _distanceOffset: 15
 --- !u!4 &1136628909
 Transform:
   m_ObjectHideFlags: 0

@@ -1,8 +1,9 @@
-﻿Shader "Unlit/CurvedGroundUnlit"
+﻿Shader "Unlit/CurvedUnlit"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Tint", Color) = (1.000000,1.000000,1.000000,1.000000)
     }
     SubShader
     {
@@ -38,6 +39,8 @@
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float _CurveStrength;
+            float _DistanceOffset;
+            float4 _Color;
 
             v2f vert(appdata v)
             {
@@ -45,6 +48,8 @@
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
                 float dist = UNITY_Z_0_FAR_FROM_CLIPSPACE(o.vertex.z);
+                dist -= _DistanceOffset;
+                dist = dist < 0 ? 0 : dist;
                 o.vertex.y -= dist * dist * _CurveStrength * _ProjectionParams.x;
                 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -58,7 +63,7 @@
                 fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                return col * _Color;
             }
             ENDCG
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelGeneratorConfig
   m_EditorClassIdentifier: 
   EmptyPartsSpawnTime: 1.5
-  CoverDistance: 80
+  CoverDistance: 100
   DestroyDistance: 20
   EmptyConfig: {fileID: 11400000, guid: 9c78423561e16f74cbf043aaea71d43f, type: 2}
   GameLevelConfig: {fileID: 11400000, guid: 57d8421dcb76ec24b8d827b04030363d, type: 2}
