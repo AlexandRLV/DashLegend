@@ -76,6 +76,9 @@ namespace GameCore.Level.Props
                     var decor = PrefabGameObjectPool.GetPrefabInstance(prefab);
                     decor.transform.SetParent(place.transform);
                     decor.transform.MoveToLocalZero(changeScale: false);
+                    if (place.RandomRotation)
+                        decor.transform.rotation = Quaternion.Euler(0f, Random.value * 360f, 0f);
+                    
                     propsPart.SpawnedProps.Add(decor);
 
                     var offset = Random.insideUnitCircle * place.Radius;
