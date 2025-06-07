@@ -16,6 +16,7 @@ namespace GUI
         public bool JumpPressed { get; private set; }
         
         [SerializeField] private Button _settingsButton;
+        [SerializeField] private Button _shopButton;
         [SerializeField] private Button _pauseButton;
         [SerializeField] private TextMeshProUGUI _distanceText;
         [SerializeField] private Button _jumpButton;
@@ -36,6 +37,7 @@ namespace GUI
             // _settingsButton.onClick.AddListener(OnSettingsPressed);
             _pauseButton.onClick.AddListener(OnPausePressed);
             _jumpButton.onClick.AddListener(OnJumpPressed);
+            _shopButton.onClick.AddListener(OnShopPressed);
             _inputState.RegisterInputSource(this);
         }
 
@@ -76,6 +78,11 @@ namespace GUI
         private void OnPausePressed()
         {
             _gameStateMachine.SwitchToState(new PauseGameStateData());
+        }
+
+        private void OnShopPressed()
+        {
+            PushWindow<SkinShopWindow>();
         }
 
         private void Update()

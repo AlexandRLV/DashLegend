@@ -19,10 +19,8 @@ namespace Startup.ServicesInitializers
             GameContainer.Current.CreateAndRegister<PlayerCurrencyController>();
             GameContainer.Current.CreateAndRegister<SettingsProvider>();
 
-            var soundsSystem = Instantiate(_soundSystem);
-            GameContainer.Current.InjectToInstance(soundsSystem);
+            var soundsSystem = GameContainer.Current.InstantiateAndRegister(_soundSystem);
             DontDestroyOnLoad(soundsSystem.gameObject);
-            GameContainer.Current.Register(soundsSystem);
             
             return UniTask.CompletedTask;
         }

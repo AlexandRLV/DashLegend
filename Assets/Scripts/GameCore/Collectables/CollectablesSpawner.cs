@@ -12,12 +12,12 @@ namespace GameCore.Collectables
     public class CollectablesSpawner
     {
         private readonly Dictionary<Type, BaseCollectableHandler> _typeToHandler;
-        private readonly Dictionary<CollectableType, BaseCollectable> _typeToPrefab;
+        private readonly Dictionary<CollectablePrefabType, BaseCollectable> _typeToPrefab;
 
         public CollectablesSpawner(CollectablesConfig config)
         {
             _typeToHandler = new Dictionary<Type, BaseCollectableHandler>();
-            _typeToPrefab = new Dictionary<CollectableType, BaseCollectable>();
+            _typeToPrefab = new Dictionary<CollectablePrefabType, BaseCollectable>();
             foreach (var container in config.Collectables)
             {
                 _typeToPrefab.Add(container.Item1, container.Item2);
@@ -55,7 +55,7 @@ namespace GameCore.Collectables
                     continue;
                 }
 
-                var instance = GameContainer.Current.InstantiateAndResolve(prefab);
+                var instance = GameContainer.Current.Instantiate(prefab);
                 instance.transform.SetParent(place.transform);
                 instance.transform.MoveToLocalZero();
                 levelPart.SpawnedCollectables.Add(instance);

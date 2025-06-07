@@ -149,9 +149,23 @@ namespace Framework.DI
             
             return instance;
         }
+
+        public T InstantiateAndRegister<T>(T prefab) where T : MonoBehaviour
+        {
+            var instance = Instantiate(prefab);
+            Register(instance);
+            return instance;
+        }
+
+        public T InstantiateAndRegister<T>(T prefab, Transform parent) where T : MonoBehaviour
+        {
+            var instance = Instantiate(prefab, parent);
+            Register(instance);
+            return instance;
+        }
         
         // Method for instantiating prefab and passing all [Inject] fields and methods in it
-        public T InstantiateAndResolve<T>(T prefab) where T : MonoBehaviour
+        public T Instantiate<T>(T prefab) where T : MonoBehaviour
         {
             var spawnedObject = PrefabMonoPool<T>.GetPrefabInstance(prefab);
             InjectToInstance(spawnedObject);
@@ -161,9 +175,9 @@ namespace Framework.DI
             return spawnedObject;
         }
         
-        public T InstantiateAndResolve<T>(T prefab, Transform parent) where T : MonoBehaviour
+        public T Instantiate<T>(T prefab, Transform parent) where T : MonoBehaviour
         {
-            var spawnedObject = PrefabMonoPool<T>.GetPrefabInstanceForParent(prefab, parent);
+            var spawnedObject = PrefabMonoPool<T>.GetPrefabInstance(prefab, parent);
             InjectToInstance(spawnedObject);
             if (spawnedObject is IInitializable initializable)
                 initializable.Initialize();

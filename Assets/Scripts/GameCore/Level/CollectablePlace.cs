@@ -5,6 +5,6 @@ namespace GameCore.Level
 {
     public class CollectablePlace : MonoBehaviour
     {
-        [SerializeField] public CollectableType Type;
+        [SerializeField] public CollectablePrefabType Type;
     }
 }

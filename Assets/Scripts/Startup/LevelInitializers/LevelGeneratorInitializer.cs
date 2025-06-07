@@ -1,6 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using Framework.DI;
 using Framework.Initialization;
+using GameCore.Boosters;
+using GameCore.Boosters.Handlers;
 using GameCore.Collectables;
 using GameCore.Collectables.HandlerTypes;
 using GameCore.Level;
@@ -17,17 +19,23 @@ namespace Startup.LevelInitializers
         
         public override UniTask Initialize()
         {
+            GameContainer.Current.CreateAndRegister<BoostersService>();
+            GameContainer.Current.CreateAndRegister<MagnetBoosterHandler>();
+            GameContainer.Current.CreateAndRegister<ShieldBoosterHandler>();
+            GameContainer.Current.CreateAndRegister<JetPackBoosterHandler>();
+            
             GameContainer.Current.Register(_collectablesConfig);
+            
             var collectablesSpawner = new CollectablesSpawner(_collectablesConfig);
             GameContainer.Current.Register(collectablesSpawner);
 
             var decorSpawner = new LevelPropsSpawner(_levelPropsConfig);
             GameContainer.Current.Register(decorSpawner);
             
-            var levelGenerator = GameContainer.Current.InstantiateAndResolve(_levelGeneratorPrefab);
-            GameContainer.Current.Register(levelGenerator);
+            GameContainer.Current.InstantiateAndRegister(_levelGeneratorPrefab);
             
             GameContainer.Current.CreateAndRegister<CurrencyCollectableHandler>();
+            GameContainer.Current.CreateAndRegister<BoosterCollectableHandler>();
             
             return UniTask.CompletedTask;
         }

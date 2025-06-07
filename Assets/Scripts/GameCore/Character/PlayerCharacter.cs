@@ -5,6 +5,7 @@ using Framework.CharacterStateMachine;
 using Framework.DI;
 using Framework.Extensions;
 using Framework.Sounds;
+using GameCore.Boosters;
 using GameCore.Character.MoveStates;
 using GameCore.Level;
 using LocalMessages;
@@ -23,6 +24,7 @@ namespace GameCore.Character
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
         [Inject] private readonly PlayerCurrencyController _playerCurrencyController;
         [Inject] private readonly SoundSystem _soundSystem;
+        [Inject] private readonly BoostersService _boostersService;
         
         private bool _hasVisuals;
         private CharacterVisuals _visuals;
@@ -81,6 +83,12 @@ namespace GameCore.Character
             if (other.GetComponent<Obstacle>() == null)
                 return;
 
+            if (_boostersService.IsBoosterActive(BoosterType.Shield))
+            {
+                // TODO: destroy obstacle
+                return;
+            }
+            
             _soundSystem.PlaySound(SoundType.Hit);
             int lives = _playerCurrencyController.GetCurrencyAmount(CurrencyType.Lives);
             if (lives > 0)

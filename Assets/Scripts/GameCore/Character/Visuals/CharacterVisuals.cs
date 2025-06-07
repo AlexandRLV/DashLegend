@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore.Skins;
 using UnityEngine;
 
 namespace GameCore.Character
@@ -14,6 +15,7 @@ namespace GameCore.Character
         };
         
         [SerializeField] private Animator _animator;
+        [SerializeField] private CharacterSkin[] _skins;
 
         private AnimationType _currentAnimation;
         
@@ -27,6 +29,21 @@ namespace GameCore.Character
 
             _currentAnimation = animationType;
             _animator.CrossFade(stateHash, 0.2f, 0);
+        }
+
+        public void SetSkin(SkinType type)
+        {
+            bool hasActiveSkin = false;
+            foreach (var skin in _skins)
+            {
+                bool isActive = skin.Type == type;
+                skin.gameObject.SetActive(isActive);
+                if (isActive)
+                    hasActiveSkin = true;
+            }
+            
+            if (!hasActiveSkin)
+                Debug.LogError($"[CharacterVisuals] Can't find skin to activate {type}");
         }
     }
 }

@@ -15,6 +15,12 @@ namespace GameCore.Level
         [NonSerialized] public List<BaseCollectable> SpawnedCollectables;
 
 #if UNITY_EDITOR
+        [ContextMenu("Collect collectables")]
+        private void CollectCollectables()
+        {
+            CollectablePlaces = GetComponentsInChildren<CollectablePlace>();
+        }
+        
         [ContextMenu("Add props part")]
         private void AddPropsPart()
         {

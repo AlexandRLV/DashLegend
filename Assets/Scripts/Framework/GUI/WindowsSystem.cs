@@ -104,7 +104,7 @@ namespace Framework.GUI
             if (windowPrefabBase is not T windowPrefab)
                 throw new ArgumentException($"Error in getting window type {type.Name} - registered wrong window");
             
-            var window = GameContainer.Current.InstantiateAndResolve(windowPrefab, _uiRoot.WindowsParent);
+            var window = GameContainer.Current.Instantiate(windowPrefab, _uiRoot.WindowsParent);
             _loadedWindows.Add(type, window);
             return window;
         }
@@ -128,7 +128,7 @@ namespace Framework.GUI
             if (windowPrefabBase is not TWindow windowPrefab)
                 throw new ArgumentException($"Error in getting window type {type.Name} - registered wrong window");
             
-            var window = GameContainer.Current.InstantiateAndResolve(windowPrefab, _uiRoot.WindowsParent);
+            var window = GameContainer.Current.Instantiate(windowPrefab, _uiRoot.WindowsParent);
             _loadedWindows.Add(type, window);
             window.Initialize(initData);
             return window;

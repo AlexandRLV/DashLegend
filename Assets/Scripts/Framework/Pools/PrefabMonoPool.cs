@@ -83,7 +83,7 @@ namespace Framework.Pools
 			return instance;
 		}
 
-		public static T GetPrefabInstanceForParent(T prefab, Transform parent, int initialCapacity = 0)
+		public static T GetPrefabInstance(T prefab, Transform parent, int initialCapacity = 0)
 		{
 			var instance = GetPrefabInstance(prefab, initialCapacity);
 			instance.transform.SetParent(parent);

@@ -4,6 +4,7 @@ using Framework.Initialization;
 using Framework.Pools;
 using GameCore.Character;
 using GameCore.Input;
+using GameCore.Skins;
 using UnityEngine;
 
 namespace Startup.LevelInitializers
@@ -13,6 +14,8 @@ namespace Startup.LevelInitializers
         [SerializeField] private float _groundYOffset;
         [SerializeField] private PlayerCharacter _playerCharacterPrefab;
         [SerializeField] private CharacterVisuals _characterVisualsPrefab;
+
+        [Inject] private readonly CharacterSkinService _characterSkinService;
         
         public override UniTask Initialize()
         {
@@ -23,11 +26,11 @@ namespace Startup.LevelInitializers
 #endif
             
             var visuals = PrefabMonoPool<CharacterVisuals>.GetPrefabInstance(_characterVisualsPrefab);
+            visuals.SetSkin(_characterSkinService.SelectedSkin);
             
-            var character = GameContainer.Current.InstantiateAndResolve(_playerCharacterPrefab);
+            var character = GameContainer.Current.InstantiateAndRegister(_playerCharacterPrefab);
             character.transform.position = Vector3.up * _groundYOffset;
             character.Initialize(visuals, _groundYOffset);
-            GameContainer.Current.Register(character);
 
             return UniTask.CompletedTask;
         }
