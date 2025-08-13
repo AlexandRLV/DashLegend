@@ -2,7 +2,7 @@
 {
     public class JetPackBoosterHandler : BoosterHandlerBase
     {
-        public override BoosterType Type => BoosterType.JetPack;
+        protected override BoosterType Type => BoosterType.JetPack;
 
         protected override void InitializeInternal()
         {

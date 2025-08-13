@@ -76,18 +76,10 @@ namespace GameCore.Character
             _stateMachine.CheckStates(true);
         }
 
-        public void OnTrigger(Collider other)
+        public void ProcessObstacleHit()
         {
-            if (MoveValues.IsAutoRun) return;
-            if (IsDead) return;
-            if (other.GetComponent<Obstacle>() == null)
-                return;
-
             if (_boostersService.IsBoosterActive(BoosterType.Shield))
-            {
-                // TODO: destroy obstacle
                 return;
-            }
             
             _soundSystem.PlaySound(SoundType.Hit);
             int lives = _playerCurrencyController.GetCurrencyAmount(CurrencyType.Lives);

@@ -1,9 +1,11 @@
-﻿namespace GameCore.Boosters
+﻿using System;
+
+namespace GameCore.Boosters
 {
-    public enum BoosterType
+    public enum BoosterType : int
     {
-        Magnet,
-        Shield,
-        JetPack,
+        Magnet = 0,
+        Shield = 1,
+        JetPack = 2,
     }
 }

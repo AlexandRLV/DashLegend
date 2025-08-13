@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Framework;
 using Framework.DI;
 using Framework.MonoUpdate;
 using GameCore.Boosters.Handlers;
@@ -9,8 +10,14 @@ namespace GameCore.Boosters
 {
     public class BoostersService : IInitializable, IUpdatable, IDisposable
     {
-        private class BoosterContainer
+        public event Action<ActiveBoosterContainer> OnBoosterActivated;
+        public event Action<ActiveBoosterContainer> OnBoosterDeactivated;
+        
+        public ReadOnlyList<ActiveBoosterContainer> ActiveBoosters => _activeHandlers;
+        
+        public class ActiveBoosterContainer
         {
+            public BoosterType Type;
             public bool Active;
             public float ActiveTime;
             public BoosterHandlerBase Handler;
@@ -19,14 +26,14 @@ namespace GameCore.Boosters
         [Inject] private readonly GameTime _gameTime;
         [Inject] private readonly MonoUpdater _monoUpdater;
 
-        private List<BoosterContainer> _activeHandlers;
-        private Dictionary<BoosterType, BoosterContainer> _boosterHandlers;
+        private List<ActiveBoosterContainer> _activeHandlers;
+        private Dictionary<BoosterType, ActiveBoosterContainer> _boosterHandlers;
         
         public void Initialize()
         {
             _monoUpdater.AddUpdatable(this);
-            _activeHandlers = new List<BoosterContainer>();
-            _boosterHandlers = new Dictionary<BoosterType, BoosterContainer>();
+            _activeHandlers = new List<ActiveBoosterContainer>();
+            _boosterHandlers = new Dictionary<BoosterType, ActiveBoosterContainer>();
         }
 
         public bool IsBoosterActive(BoosterType type) =>
@@ -40,8 +47,9 @@ namespace GameCore.Boosters
                 return;
             }
 
-            _boosterHandlers[type] = new BoosterContainer
+            _boosterHandlers[type] = new ActiveBoosterContainer
             {
+                Type = type,
                 Active = false,
                 ActiveTime = 0f,
                 Handler = handler
@@ -90,6 +98,8 @@ namespace GameCore.Boosters
             
             if (!_activeHandlers.Contains(container))
                 _activeHandlers.Add(container);
+            
+            OnBoosterActivated?.Invoke(container);
         }
 
         public void DeactivateBooster(BoosterType type)
@@ -103,7 +113,7 @@ namespace GameCore.Boosters
             DeactivateBooster(container);
         }
 
-        private void DeactivateBooster(BoosterContainer container)
+        private void DeactivateBooster(ActiveBoosterContainer container)
         {
             if (container.Active)
             {
@@ -113,6 +123,7 @@ namespace GameCore.Boosters
 
             container.ActiveTime = 0f;
             _activeHandlers.Remove(container);
+            OnBoosterDeactivated?.Invoke(container);
         }
 
         public void Update()

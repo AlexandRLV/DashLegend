@@ -8,7 +8,7 @@ namespace GameCore.Character
 
         private void OnTriggerEnter(Collider other)
         {
-            _character.OnTrigger(other);
+            // _character.OnTrigger(other);
         }
     }
 }

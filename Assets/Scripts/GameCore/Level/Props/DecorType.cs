@@ -6,5 +6,6 @@ namespace GameCore.Level.Props
     public enum DecorType
     {
         MainRoadDecor = 1,
+        Building = 2,
     }
 }

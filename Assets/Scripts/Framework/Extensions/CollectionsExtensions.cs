@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
+using Random = UnityEngine.Random;
 
 namespace Framework.Extensions
 {
@@ -65,6 +67,46 @@ namespace Framework.Extensions
             }
 
             return default;
+        }
+        
+        public static bool TryGetValueByKey<T1, T2, T3>(this T3[] array, T1 key, out T2 value)
+            where T1 : IEquatable<T1>
+            where T3 : SerializableContainer<T1, T2>
+        {
+            value = default;
+            if (array == null || array.Length == 0)
+                return false;
+
+            foreach (var item in array)
+            {
+                if (item.Item1.Equals(key))
+                {
+                    value = item.Item2;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+        public static bool TryGetValueByEnumKey<T1, T2, T3>(this T3[] array, T1 key, out T2 value)
+            where T1 : Enum
+            where T3 : SerializableContainer<T1, T2>
+        {
+            value = default;
+            if (array == null || array.Length == 0)
+                return false;
+
+            foreach (var item in array)
+            {
+                if (item.Item1.Equals(key))
+                {
+                    value = item.Item2;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

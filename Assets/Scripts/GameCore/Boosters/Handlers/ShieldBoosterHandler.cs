@@ -2,7 +2,7 @@
 {
     public class ShieldBoosterHandler : BoosterHandlerBase
     {
-        public override BoosterType Type => BoosterType.Shield;
+        protected override BoosterType Type => BoosterType.Shield;
 
         protected override void InitializeInternal()
         {

@@ -5,7 +5,7 @@ namespace GameCore.Boosters.Handlers
 {
     public abstract class BoosterHandlerBase : IInitializable, IDisposable
     {
-        public abstract BoosterType Type { get; }
+        protected abstract BoosterType Type { get; }
 
         [Inject] private readonly BoostersService _boostersService;
         

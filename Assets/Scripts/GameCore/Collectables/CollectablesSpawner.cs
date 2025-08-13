@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Framework;
 using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
@@ -11,13 +12,18 @@ namespace GameCore.Collectables
 {
     public class CollectablesSpawner
     {
+        public ReadOnlyList<BaseCollectable> ActiveCollectables => _activeCollectables;
+        
         private readonly Dictionary<Type, BaseCollectableHandler> _typeToHandler;
         private readonly Dictionary<CollectablePrefabType, BaseCollectable> _typeToPrefab;
+        private readonly List<BaseCollectable> _activeCollectables;
 
         public CollectablesSpawner(CollectablesConfig config)
         {
             _typeToHandler = new Dictionary<Type, BaseCollectableHandler>();
             _typeToPrefab = new Dictionary<CollectablePrefabType, BaseCollectable>();
+            _activeCollectables = new List<BaseCollectable>();
+            
             foreach (var container in config.Collectables)
             {
                 _typeToPrefab.Add(container.Item1, container.Item2);
@@ -55,10 +61,13 @@ namespace GameCore.Collectables
                     continue;
                 }
 
-                var instance = GameContainer.Current.Instantiate(prefab);
-                instance.transform.SetParent(place.transform);
-                instance.transform.MoveToLocalZero();
-                levelPart.SpawnedCollectables.Add(instance);
+                var collectable = PrefabMonoPool<BaseCollectable>.GetPrefabInstance(prefab);
+                GameContainer.Current.InjectToInstance(collectable);
+                
+                collectable.transform.SetParent(place.transform);
+                collectable.transform.MoveToLocalZero();
+                levelPart.SpawnedCollectables.Add(collectable);
+                _activeCollectables.Add(collectable);
             }
         }
 
@@ -81,14 +90,16 @@ namespace GameCore.Collectables
             collectable.gameObject.SetActive(false);
         }
 
-        private static void CleanupLevelPart(LevelPart levelPart)
+        private void CleanupLevelPart(LevelPart levelPart)
         {
             if (levelPart.SpawnedCollectables == null)
                 return;
 
-            foreach (var spawnedCollectable in levelPart.SpawnedCollectables)
+            foreach (var collectable in levelPart.SpawnedCollectables)
             {
-                PrefabMonoPool<BaseCollectable>.ReturnInstance(spawnedCollectable);
+                collectable.Cleanup();
+                _activeCollectables.Remove(collectable);
+                PrefabMonoPool<BaseCollectable>.ReturnInstance(collectable);
             }
             
             levelPart.SpawnedCollectables.Clear();
