@@ -1,9 +1,9 @@
-﻿using Framework.DI;
-using Framework.GameStateMachine;
+﻿using Framework.GameStateMachine;
 using Framework.GUI;
 using Startup.GameStates;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace GUI
 {
@@ -14,9 +14,8 @@ namespace GUI
 
         [Inject] private readonly GameStateMachine _gameStateMachine;
         
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
             _pauseButton.onClick.AddListener(OnPausePressed);
             _playButton.onClick.AddListener(OnPlayPressed);
         }

@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using Framework.DI;
+﻿using System.Collections.Generic;
 using Framework.Extensions;
-using Framework.MonoUpdate;
 using Framework.Pools;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore.CommonShadow
 {
-    public class ShadowController : IInitializable, IUpdatable, IDisposable
+    public class ShadowController : ITickable
     {
-        [Inject] private readonly MonoUpdater _monoUpdater;
         [Inject] private readonly ShadowConfig _shadowConfig;
+        [Inject] private readonly IObjectResolver _container;
 
-        private List<(Transform, Transform)> _objectsWithShadow = new();
+        private readonly List<(Transform, Transform)> _objectsWithShadow = new();
 
-        public void Initialize() => _monoUpdater.AddUpdatable(this);
-        public void Dispose() => _monoUpdater.RemoveUpdatable(this);
-
-        public void Update()
+        public void Tick()
         {
             foreach (var (source, shadow) in _objectsWithShadow)
             {
@@ -31,6 +27,7 @@ namespace GameCore.CommonShadow
             if (scale <= 0f) return;
             
             var shadow = PrefabGameObjectPool.GetPrefabInstance(_shadowConfig.ShadowPrefab);
+            _container.Inject(shadow);
             shadow.transform.position = source.transform.position.WithY(_shadowConfig.FloorHeightOffset);
             shadow.transform.localScale = Vector3.one * scale;
             _objectsWithShadow.Add((source, shadow.transform));

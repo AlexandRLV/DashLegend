@@ -1,4 +1,5 @@
-﻿using Framework.DI;
+﻿
+using VContainer;
 
 namespace GameCore.Character.MoveStates
 {

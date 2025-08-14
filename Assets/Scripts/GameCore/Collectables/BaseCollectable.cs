@@ -1,11 +1,13 @@
-﻿using Framework.DI;
-using GameCore.Character;
+﻿using GameCore.Character;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Collectables
 {
     public abstract class BaseCollectable : MonoBehaviour
     {
+        [SerializeField] private MonoBehaviour[] _collectableComponents;
+        
         [Inject] private readonly CollectablesSpawner _collectablesSpawner;
 
         private bool _isMagnetActive;
@@ -22,6 +24,11 @@ namespace GameCore.Collectables
             _isMagnetActive = true;
             _magnetOrigin = magnetOrigin;
             _magnetSpeed = moveSpeed;
+
+            foreach (var component in _collectableComponents)
+            {
+                component.enabled = false;
+            }
         }
 
         private void Update()
@@ -35,7 +42,8 @@ namespace GameCore.Collectables
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerCharacter>() != null)
+            var character = other.GetComponentInParent<PlayerCharacter>();
+            if (character == null)
                 return;
 
             Cleanup();
@@ -47,6 +55,11 @@ namespace GameCore.Collectables
             _isMagnetActive = false;
             _magnetOrigin = null;
             _magnetSpeed = 0f;
+            
+            foreach (var component in _collectableComponents)
+            {
+                component.enabled = true;
+            }
         }
     }
 }

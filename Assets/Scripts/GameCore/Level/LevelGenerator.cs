@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
 using GameCore.Collectables;
 using GameCore.Level.Props;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore.Level
 {
@@ -24,6 +25,7 @@ namespace GameCore.Level
         [SerializeField] private LevelGeneratorConfig _levelGeneratorConfig;
 
         [Inject] private readonly GameTime _gameTime;
+        [Inject] private readonly IObjectResolver _container;
         [Inject] private readonly GameController _gameController;
         [Inject] private readonly LevelPropsSpawner _levelPropsSpawner;
         [Inject] private readonly CollectablesSpawner _collectablesSpawner;
@@ -127,6 +129,7 @@ namespace GameCore.Level
                 var position = lineOrigin.position + Vector3.forward * (furthestCoveredZ + part.PartPrefab.HalfLength);
                 var rotation = lineOrigin.rotation;
                 var levelPart = PrefabMonoPool<LevelPart>.GetPrefabInstance(part.PartPrefab);
+                _container.InjectGameObject(levelPart.gameObject);
 
 #if UNITY_EDITOR
                 levelPart.transform.parent = lineOrigin;

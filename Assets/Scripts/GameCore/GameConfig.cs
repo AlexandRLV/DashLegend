@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameCore.Character;
+using UnityEngine;
 
 namespace GameCore
 {
@@ -9,5 +10,9 @@ namespace GameCore
         [SerializeField] public float TimeScaleIncreaseInterval;
         [SerializeField] public float TimeScaleIncreaseValue;
         [SerializeField] public float MaxTimeScale;
+        
+        [SerializeField] public float GroundYOffset;
+        [SerializeField] public PlayerCharacter PlayerCharacterPrefab;
+        [SerializeField] public CharacterVisuals CharacterVisualsPrefab;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
-using Framework.DI;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore.Collectables
 {

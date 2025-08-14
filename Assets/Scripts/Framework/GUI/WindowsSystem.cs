@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Framework.DI;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace Framework.GUI
@@ -9,15 +10,18 @@ namespace Framework.GUI
     public class WindowsSystem
     {
         private readonly UiRoot _uiRoot;
+        private readonly IObjectResolver _container;
         
         private readonly Dictionary<Type, WindowBase> _windowsPrefabs;
         private readonly Dictionary<Type, WindowBase> _loadedWindows;
         private readonly Stack<WindowBase> _windowsStack;
         
         [Inject]
-        public WindowsSystem(GameWindows gameWindows, UiRoot uiRoot)
+        public WindowsSystem(GameWindows gameWindows, UiRoot uiRoot, IObjectResolver container)
         {
             _uiRoot = uiRoot;
+            _container = container;
+            
             _windowsPrefabs = new Dictionary<Type, WindowBase>();
             _loadedWindows = new Dictionary<Type, WindowBase>();
             _windowsStack = new Stack<WindowBase>();
@@ -104,7 +108,7 @@ namespace Framework.GUI
             if (windowPrefabBase is not T windowPrefab)
                 throw new ArgumentException($"Error in getting window type {type.Name} - registered wrong window");
             
-            var window = GameContainer.Current.Instantiate(windowPrefab, _uiRoot.WindowsParent);
+            var window = _container.Instantiate(windowPrefab, _uiRoot.WindowsParent);
             _loadedWindows.Add(type, window);
             return window;
         }
@@ -128,7 +132,7 @@ namespace Framework.GUI
             if (windowPrefabBase is not TWindow windowPrefab)
                 throw new ArgumentException($"Error in getting window type {type.Name} - registered wrong window");
             
-            var window = GameContainer.Current.Instantiate(windowPrefab, _uiRoot.WindowsParent);
+            var window = _container.Instantiate(windowPrefab, _uiRoot.WindowsParent);
             _loadedWindows.Add(type, window);
             window.Initialize(initData);
             return window;

@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Framework.DI;
 using UnityEngine;
+using VContainer;
 
 namespace Framework.GameStateMachine
 {
     public class GameStateMachine
     {
+        [Inject] private readonly IObjectResolver _container;
+        
         private IGameState _currentState;
         private readonly Dictionary<Type, IGameState> _states = new();
 
         public void AddGameState<TStateData, TState>()
             where TStateData : struct, IGameStateData
-            where TState : IGameState<TStateData>
+            where TState : IGameState<TStateData>, new()
         {
             var dataType = typeof(TStateData);
-            _states.Add(dataType, (IGameState)GameContainer.Current.Create(typeof(TState)));
+            var stateObject = new TState();
+            _container.Inject(stateObject);
+            _states.Add(dataType, stateObject);
         }
 
         public bool IsInState<T>() where T : struct, IGameStateData

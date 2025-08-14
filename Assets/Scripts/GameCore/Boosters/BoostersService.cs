@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Framework;
-using Framework.DI;
-using Framework.MonoUpdate;
 using GameCore.Boosters.Handlers;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore.Boosters
 {
-    public class BoostersService : IInitializable, IUpdatable, IDisposable
+    public class BoostersService : IInitializable, ITickable, IDisposable
     {
         public event Action<ActiveBoosterContainer> OnBoosterActivated;
         public event Action<ActiveBoosterContainer> OnBoosterDeactivated;
@@ -24,15 +24,15 @@ namespace GameCore.Boosters
         }
         
         [Inject] private readonly GameTime _gameTime;
-        [Inject] private readonly MonoUpdater _monoUpdater;
 
         private List<ActiveBoosterContainer> _activeHandlers;
+        private List<ActiveBoosterContainer> _boostersToDeactivate;
         private Dictionary<BoosterType, ActiveBoosterContainer> _boosterHandlers;
         
         public void Initialize()
         {
-            _monoUpdater.AddUpdatable(this);
             _activeHandlers = new List<ActiveBoosterContainer>();
+            _boostersToDeactivate = new List<ActiveBoosterContainer>();
             _boosterHandlers = new Dictionary<BoosterType, ActiveBoosterContainer>();
         }
 
@@ -126,15 +126,21 @@ namespace GameCore.Boosters
             OnBoosterDeactivated?.Invoke(container);
         }
 
-        public void Update()
+        public void Tick()
         {
             foreach (var container in _activeHandlers)
             {
                 container.Handler.Update();
                 container.ActiveTime -= _gameTime.DeltaTime;
                 if (container.ActiveTime <= 0f)
-                    DeactivateBooster(container);
+                    _boostersToDeactivate.Add(container);
             }
+
+            foreach (var container in _boostersToDeactivate)
+            {
+                DeactivateBooster(container);
+            }
+            _boostersToDeactivate.Clear();
         }
 
         public void Dispose()

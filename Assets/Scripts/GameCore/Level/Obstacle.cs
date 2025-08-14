@@ -1,7 +1,7 @@
-﻿using Framework.DI;
-using GameCore.Boosters;
+﻿using GameCore.Boosters;
 using GameCore.Character;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Level
 {
@@ -11,7 +11,8 @@ namespace GameCore.Level
         
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out PlayerCharacter character))
+            var character = other.GetComponentInParent<PlayerCharacter>();
+            if (character == null)
                 return;
             
             if (_boostersService.IsBoosterActive(BoosterType.Shield))

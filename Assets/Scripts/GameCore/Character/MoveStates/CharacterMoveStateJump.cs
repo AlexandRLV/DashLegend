@@ -1,8 +1,8 @@
-﻿using Framework.DI;
-using Framework.Extensions;
+﻿using Framework.Extensions;
 using Framework.Sounds;
 using GameCore.Input;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Character.MoveStates
 {

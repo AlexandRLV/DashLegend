@@ -1,6 +1,5 @@
 ﻿using Currency;
 using Framework;
-using Framework.DI;
 using Framework.GUI;
 using Framework.Pools;
 using GameCore.Character;
@@ -9,6 +8,7 @@ using LocalMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace GUI
 {
@@ -40,9 +40,8 @@ namespace GUI
         private SkinType _currentSkin;
         private int _currentSkinConfigId;
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
             _closeButton.onClick.AddListener(Close);
             _purchaseButton.onClick.AddListener(OnPurchaseClick);
             _selectButton.onClick.AddListener(OnSelectClick);

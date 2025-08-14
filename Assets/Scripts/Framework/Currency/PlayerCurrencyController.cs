@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Framework;
-using Framework.DI;
 using LocalMessages;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Currency
 {

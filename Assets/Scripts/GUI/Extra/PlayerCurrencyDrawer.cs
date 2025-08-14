@@ -1,9 +1,9 @@
 ﻿using Currency;
 using Framework;
-using Framework.DI;
 using LocalMessages;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace GUI
 {
@@ -15,9 +15,8 @@ namespace GUI
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
         [Inject] private readonly PlayerCurrencyController _playerCurrencyController;
 
-        private void Awake()
+        private void Start()
         {
-            GameContainer.Current.InjectToInstance(this);
             _localMessageBroker.Subscribe(this);
             Refresh();
         }

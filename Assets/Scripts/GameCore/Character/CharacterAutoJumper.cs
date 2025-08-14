@@ -1,7 +1,7 @@
-﻿using Framework.DI;
-using GameCore.Input;
+﻿using GameCore.Input;
 using GameCore.Level;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Character
 {
@@ -18,7 +18,6 @@ namespace GameCore.Character
 
         private void OnEnable()
         {
-            GameContainer.Current.InjectToInstance(this);
             _inputState.RegisterInputSource(this);
         }
 

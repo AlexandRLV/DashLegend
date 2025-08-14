@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using Framework.DI;
 using Framework.GameStateMachine;
 using Framework.GUI;
 using Framework.Sounds;
@@ -7,6 +6,7 @@ using GameCore;
 using GameCore.Character;
 using GameCore.Level;
 using GUI;
+using VContainer;
 
 namespace Startup.GameStates
 {
@@ -16,7 +16,7 @@ namespace Startup.GameStates
     {
         [Inject] private readonly WindowsSystem _windowsSystem;
         [Inject] private readonly LevelGenerator _levelGenerator;
-        [Inject] private readonly PlayerCharacter _playerCharacter;
+        [Inject] private readonly PlayerSpawnService _playerSpawnService;
         [Inject] private readonly GameController _gameController;
         [Inject] private readonly SoundSystem _soundSystem;
         
@@ -28,8 +28,8 @@ namespace Startup.GameStates
             _soundSystem.PlayMusic(MusicType.Game);
             _levelGenerator.Clear();
             _levelGenerator.StartSpawn(LevelGeneratorMode.Menu);
-            _playerCharacter.MoveValues.IsAutoRun = true;
-            _playerCharacter.Revive();
+            _playerSpawnService.Character.MoveValues.IsAutoRun = true;
+            _playerSpawnService.Character.Revive();
             _gameController.ResetInGameState(false);
             
             return UniTask.CompletedTask;

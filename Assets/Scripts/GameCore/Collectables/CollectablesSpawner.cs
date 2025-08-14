@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Framework;
-using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
 using GameCore.Level;
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore.Collectables
 {
     public class CollectablesSpawner
     {
         public ReadOnlyList<BaseCollectable> ActiveCollectables => _activeCollectables;
+
+        [Inject] private readonly IObjectResolver _container;
         
         private readonly Dictionary<Type, BaseCollectableHandler> _typeToHandler;
         private readonly Dictionary<CollectablePrefabType, BaseCollectable> _typeToPrefab;
@@ -62,7 +65,7 @@ namespace GameCore.Collectables
                 }
 
                 var collectable = PrefabMonoPool<BaseCollectable>.GetPrefabInstance(prefab);
-                GameContainer.Current.InjectToInstance(collectable);
+                _container.InjectGameObject(collectable.gameObject);
                 
                 collectable.transform.SetParent(place.transform);
                 collectable.transform.MoveToLocalZero();

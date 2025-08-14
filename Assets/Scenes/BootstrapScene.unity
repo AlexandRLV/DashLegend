@@ -506,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soundSystem: {fileID: 5442694033051052271, guid: e5470a65545400e4a834021d0daf50c7,
     type: 3}
+  _skinsConfig: {fileID: 11400000, guid: f3dd7d17d04d013409a1be99b80926da, type: 2}
 --- !u!1 &397713465
 GameObject:
   m_ObjectHideFlags: 0

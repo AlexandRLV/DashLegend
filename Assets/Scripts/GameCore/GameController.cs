@@ -1,15 +1,15 @@
 ﻿using System;
 using Framework;
-using Framework.DI;
 using Framework.GUI;
-using Framework.MonoUpdate;
 using GUI;
 using LocalMessages;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore
 {
-    public class GameController : IInitializable, IUpdatable, IDisposable, IMessageListener<PlayerDeadMessage>
+    public class GameController : IInitializable, ITickable, IDisposable, IMessageListener<PlayerDeadMessage>
     {
         public float RunSpeed => _gameConfig.DefaultRunSpeed * SpeedMultiplier;
 
@@ -17,7 +17,6 @@ namespace GameCore
 
         [Inject] private readonly GameTime _gameTime;
         [Inject] private readonly GameConfig _gameConfig;
-        [Inject] private readonly MonoUpdater _monoUpdater;
         [Inject] private readonly WindowsSystem _windowsSystem;
         [Inject] private readonly LocalMessageBroker _localMessageBroker;
 
@@ -27,13 +26,11 @@ namespace GameCore
         public void Initialize()
         {
             _localMessageBroker.Subscribe(this);
-            _monoUpdater.AddUpdatable(this);
         }
 
         public void Dispose()
         {
             _localMessageBroker.Unsubscribe(this);
-            _monoUpdater.RemoveUpdatable(this);
         }
 
         public void ResetInGameState(bool inGame)
@@ -49,7 +46,7 @@ namespace GameCore
             _windowsSystem.PushWindow<GameOverWindow>();
         }
 
-        public void Update()
+        public void Tick()
         {
             if (!_inGame)
                 return;

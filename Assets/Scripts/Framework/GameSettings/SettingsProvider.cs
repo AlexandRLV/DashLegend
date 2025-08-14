@@ -1,5 +1,6 @@
-﻿using Framework.DI;
-using UnityEngine;
+﻿using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Framework
 {

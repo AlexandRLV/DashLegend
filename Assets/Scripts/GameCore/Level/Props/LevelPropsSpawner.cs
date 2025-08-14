@@ -3,27 +3,21 @@ using Framework.Extensions;
 using Framework.Pools;
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameCore.Level.Props
 {
     public class LevelPropsSpawner
     {
-        private readonly Queue<DecorPlace> _processingDecorPlaces;
-        private readonly Queue<ObstaclePlace> _processingObstaclePlaces;
-        private readonly List<GameObject> _processingProps;
-        private readonly List<DecorPlace> _requestingDecorPlaces;
-        private readonly List<ObstaclePlace> _requestingObstaclePlaces;
-        private readonly LevelPropsConfig _config;
-
-        public LevelPropsSpawner(LevelPropsConfig config)
-        {
-            _processingDecorPlaces = new Queue<DecorPlace>();
-            _processingObstaclePlaces = new Queue<ObstaclePlace>();
-            _processingProps = new List<GameObject>();
-            _requestingDecorPlaces = new List<DecorPlace>();
-            _requestingObstaclePlaces = new List<ObstaclePlace>();
-            _config = config;
-        }
+        [Inject] private readonly IObjectResolver _container;
+        [Inject] private readonly LevelPropsConfig _config;
+        
+        private readonly Queue<DecorPlace> _processingDecorPlaces = new();
+        private readonly Queue<ObstaclePlace> _processingObstaclePlaces = new();
+        private readonly List<GameObject> _processingProps = new();
+        private readonly List<DecorPlace> _requestingDecorPlaces = new();
+        private readonly List<ObstaclePlace> _requestingObstaclePlaces = new();
 
         public void ProcessSpawnPart(PropsPart propsPart)
         {
@@ -74,6 +68,8 @@ namespace GameCore.Level.Props
                     
                     var prefab = _processingProps.GetRandom();
                     var decor = PrefabGameObjectPool.GetPrefabInstance(prefab);
+                    _container.InjectGameObject(decor);
+                    
                     decor.transform.SetParent(place.transform);
                     decor.transform.MoveToLocalZero(changeScale: false);
                     if (place.RandomRotation)
@@ -124,6 +120,8 @@ namespace GameCore.Level.Props
 
                 var prefab = _processingProps.GetRandom();
                 var obstacle = PrefabGameObjectPool.GetPrefabInstance(prefab);
+                _container.InjectGameObject(obstacle);
+                
                 obstacle.transform.SetParent(place.transform);
                 obstacle.transform.MoveToLocalZero(changeScale: false);
                 propsPart.SpawnedProps.Add(obstacle);

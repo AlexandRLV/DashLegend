@@ -70,6 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39fffe3f3de478e98b57d26cc02d0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectableComponents:
+  - {fileID: 9185998217009921669}
+  - {fileID: 8024503695077632917}
   Type: 1
   Amount: 1
 --- !u!114 &9185998217009921669

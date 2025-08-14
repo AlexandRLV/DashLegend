@@ -1,5 +1,5 @@
-﻿using Framework.DI;
-using UnityEngine;
+﻿using UnityEngine;
+using VContainer;
 
 namespace GameCore.CommonShadow
 {
@@ -9,13 +9,12 @@ namespace GameCore.CommonShadow
         
         [Inject] private readonly ShadowController _shadowController;
         
-        private void OnEnable()
+        private void Start()
         {
-            GameContainer.Current.InjectToInstance(this);
             _shadowController.AddShadow(transform, _shadowScale);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _shadowController.RemoveShadow(transform);
         }

@@ -1,5 +1,5 @@
 ﻿using Framework.CharacterStateMachine;
-using Framework.DI;
+using VContainer;
 
 namespace GameCore.Character.MoveStates
 {
@@ -14,7 +14,6 @@ namespace GameCore.Character.MoveStates
         protected CharacterMoveStateBase(PlayerCharacter character)
         {
             Character = character;
-            GameContainer.Current.InjectToInstance(this);
         }
     }
 }

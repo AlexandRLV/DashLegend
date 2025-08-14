@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Framework.DI;
 using Framework.GameStateMachine;
 using Framework.GUI;
 using GameCore.Input;
@@ -8,6 +7,7 @@ using Startup.GameStates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace GUI
 {
@@ -31,9 +31,8 @@ namespace GUI
         private bool _isGameActive;
         private bool _jumpPressedSkipFrame;
         
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
             // _settingsButton.onClick.AddListener(OnSettingsPressed);
             _pauseButton.onClick.AddListener(OnPausePressed);
             _jumpButton.onClick.AddListener(OnJumpPressed);

@@ -1,7 +1,7 @@
 ﻿using Currency;
-using Framework.DI;
 using Framework.Sounds;
 using GameCore.Collectables.CollectableTypes;
+using VContainer;
 
 namespace GameCore.Collectables.HandlerTypes
 {

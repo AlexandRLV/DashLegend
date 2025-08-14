@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Framework.DI;
 using Framework.Extensions;
 using UnityEngine;
 using UnityEngine.Audio;
+using VContainer;
 
 namespace Framework.Sounds
 {

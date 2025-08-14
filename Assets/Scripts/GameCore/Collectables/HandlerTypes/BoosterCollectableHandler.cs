@@ -1,7 +1,7 @@
-﻿using Framework.DI;
-using Framework.Sounds;
+﻿using Framework.Sounds;
 using GameCore.Boosters;
 using GameCore.Collectables.CollectableTypes;
+using VContainer;
 
 namespace GameCore.Collectables.HandlerTypes
 {

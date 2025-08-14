@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settingsButton: {fileID: 3593491820513670585}
-  _shopButton: {fileID: 0}
+  _shopButton: {fileID: 5829702488179699991}
   _pauseButton: {fileID: 9141481776033802697}
   _distanceText: {fileID: 2019875214360371832}
   _jumpButton: {fileID: 7908398399772622184}

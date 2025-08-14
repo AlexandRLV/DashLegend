@@ -1,6 +1,6 @@
 ﻿using System;
-using Framework.DI;
 using UnityEngine;
+using VContainer;
 
 namespace Framework.GUI
 {
@@ -8,16 +8,8 @@ namespace Framework.GUI
     {
         [Inject] private WindowsSystem _windowsSystem;
 
-        protected virtual void Start()
-        {
-            GameContainer.Current.AddDisposable(this);
-        }
-
-        public virtual void Destroy()
-        {
-            GameContainer.Current.RemoveDisposable(this);
-        }
-
+        public virtual void Destroy() { }
+        
         protected void Close()
         {
             _windowsSystem.PopWindow(this);

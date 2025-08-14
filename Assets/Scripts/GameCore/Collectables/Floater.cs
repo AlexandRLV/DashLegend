@@ -1,6 +1,6 @@
-﻿using Framework.DI;
-using Framework.Extensions;
+﻿using Framework.Extensions;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Collectables
 {
@@ -19,7 +19,6 @@ namespace GameCore.Collectables
 
         private void Start()
         {
-            GameContainer.Current.InjectToInstance(this);
             _startY = _useWorldPosition ? transform.position.y : transform.localPosition.y;
             _timer = 0f;
         }

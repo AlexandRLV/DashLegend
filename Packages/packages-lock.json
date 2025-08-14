@@ -131,6 +131,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "jp.hadashikick.vcontainer": {
+      "version": "https://gitlab.com/A3b_EcMb/vcontainerfork.git?path=VContainer/Assets/VContainer",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "92a88362c3223126f92d57b83dc0d9246dbbead9"
+    },
     "com.unity.modules.androidjni": {
       "version": "1.0.0",
       "depth": 0,

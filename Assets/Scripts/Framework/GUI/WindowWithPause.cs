@@ -1,5 +1,5 @@
-﻿using Framework.DI;
-using GameCore;
+﻿using GameCore;
+using VContainer;
 
 namespace Framework.GUI
 {
@@ -9,16 +9,14 @@ namespace Framework.GUI
 
         private float _timeScale;
         
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
             _timeScale = _gameTime.TimeScale;
             _gameTime.TimeScale = 0f;
         }
 
         public override void Destroy()
         {
-            base.Destroy();
             _gameTime.TimeScale = _timeScale;
         }
     }

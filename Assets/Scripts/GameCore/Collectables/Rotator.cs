@@ -1,6 +1,6 @@
 ﻿using System;
-using Framework.DI;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Collectables
 {
@@ -18,11 +18,6 @@ namespace GameCore.Collectables
         [SerializeField] private Axis _axis;
 
         [Inject] private readonly GameTime _gameTime;
-
-        private void Start()
-        {
-            GameContainer.Current.InjectToInstance(this);
-        }
 
         private void Update()
         {

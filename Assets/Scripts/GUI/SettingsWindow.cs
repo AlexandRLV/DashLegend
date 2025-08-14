@@ -1,8 +1,8 @@
 ﻿using Framework;
-using Framework.DI;
 using Framework.GUI;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace GUI
 {
@@ -26,7 +26,6 @@ namespace GUI
 
         protected override void Start()
         {
-            base.Start();
             foreach (var closeButton in _closeButtons)
             {
                 closeButton.onClick.AddListener(OnClosePressed);

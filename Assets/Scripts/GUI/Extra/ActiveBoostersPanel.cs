@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Framework.DI;
 using Framework.Extensions;
 using Framework.Pools;
 using GameCore.Boosters;
 using UnityEngine;
+using VContainer;
 
 namespace GUI
 {
@@ -19,7 +19,6 @@ namespace GUI
 
         private void Start()
         {
-            GameContainer.Current.InjectToInstance(this);
             _activeBoosters = new Dictionary<BoosterType, ActiveBoosterItem>();
             _boostersService.OnBoosterActivated += OnBoosterActivated;
             _boostersService.OnBoosterDeactivated += OnBoosterDeactivated;

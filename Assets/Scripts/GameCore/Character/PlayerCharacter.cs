@@ -2,14 +2,13 @@
 using Currency;
 using Framework;
 using Framework.CharacterStateMachine;
-using Framework.DI;
 using Framework.Extensions;
 using Framework.Sounds;
 using GameCore.Boosters;
 using GameCore.Character.MoveStates;
-using GameCore.Level;
 using LocalMessages;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Character
 {
@@ -25,6 +24,7 @@ namespace GameCore.Character
         [Inject] private readonly PlayerCurrencyController _playerCurrencyController;
         [Inject] private readonly SoundSystem _soundSystem;
         [Inject] private readonly BoostersService _boostersService;
+        [Inject] private readonly IObjectResolver _container;
         
         private bool _hasVisuals;
         private CharacterVisuals _visuals;
@@ -42,16 +42,22 @@ namespace GameCore.Character
             
             _visuals = visuals;
             _hasVisuals = _visuals != null;
-
+            
             _stateMachine = new CharacterStateMachine<CharacterMoveStateBase, CharacterMoveStateType>();
-            _stateMachine.States.Add(new CharacterMoveStateRun(this));
-            _stateMachine.States.Add(new CharacterMoveStateJump(this));
-            _stateMachine.States.Add(new CharacterMoveStateFall(this));
-            _stateMachine.States.Add(new CharacterMoveStateDie(this));
+            AddState(new CharacterMoveStateRun(this));
+            AddState(new CharacterMoveStateJump(this));
+            AddState(new CharacterMoveStateFall(this));
+            AddState(new CharacterMoveStateDie(this));
             
             _stateMachine.ForceSetState(CharacterMoveStateType.Run, true);
             
             _localMessageBroker.Subscribe(this);
+        }
+
+        private void AddState(CharacterMoveStateBase state)
+        {
+            _container.Inject(state);
+            _stateMachine.States.Add(state);
         }
 
         public void Revive()

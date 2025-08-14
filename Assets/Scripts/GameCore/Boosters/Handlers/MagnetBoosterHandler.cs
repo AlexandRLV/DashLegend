@@ -1,7 +1,7 @@
-﻿using Framework.DI;
-using GameCore.Character;
+﻿using GameCore.Character;
 using GameCore.Collectables;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Boosters.Handlers
 {
@@ -10,7 +10,7 @@ namespace GameCore.Boosters.Handlers
         protected override BoosterType Type => BoosterType.Magnet;
 
         [Inject] private readonly BoostersConfig _boostersConfig;
-        [Inject] private readonly PlayerCharacter _playerCharacter;
+        [Inject] private readonly PlayerSpawnService _playerSpawnService;
         [Inject] private readonly CollectablesSpawner _collectablesSpawner;
 
         protected override void InitializeInternal()
@@ -24,14 +24,14 @@ namespace GameCore.Boosters.Handlers
 
         public override void Update()
         {
-            var playerPosition = _playerCharacter.transform.position;
+            var playerPosition = _playerSpawnService.Character.transform.position;
             foreach (var collectable in _collectablesSpawner.ActiveCollectables)
             {
                 var position = collectable.transform.position;
                 float distance = Vector3.Distance(playerPosition, position);
                 if (distance >= _boostersConfig.MagnetRadius) continue;
                 
-                collectable.MoveToMagnet(_playerCharacter.transform, _boostersConfig.MagnetSpeed);
+                collectable.MoveToMagnet(_playerSpawnService.Character.transform, _boostersConfig.MagnetSpeed);
             }
         }
 

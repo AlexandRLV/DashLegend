@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Framework.DI;
-using Framework.MonoUpdate;
+﻿using System.Collections.Generic;
+using VContainer.Unity;
 
 namespace GameCore.Input
 {
-    public class InputState : IInitializable, IUpdatable, IDisposable
+    public class InputState : ITickable
     {
         public bool JumpPressed;
 
-        [Inject] private readonly MonoUpdater _monoUpdater;
-        
         private readonly List<IInputSource> _inputSources = new();
-        
-        public void Initialize()
-        {
-            _monoUpdater.AddUpdatable(this);
-        }
 
         public void RegisterInputSource(IInputSource inputSource)
         {
@@ -29,7 +20,7 @@ namespace GameCore.Input
             _inputSources.Remove(inputSource);
         }
 
-        public void Update()
+        public void Tick()
         {
             Reset();
             
@@ -37,11 +28,6 @@ namespace GameCore.Input
             {
                 JumpPressed = JumpPressed || inputSource.JumpPressed;
             }
-        }
-
-        public void Dispose()
-        {
-            _monoUpdater.RemoveUpdatable(this);
         }
 
         private void Reset()

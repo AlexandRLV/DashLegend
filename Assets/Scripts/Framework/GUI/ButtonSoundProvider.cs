@@ -1,7 +1,7 @@
-﻿using Framework.DI;
-using Framework.Sounds;
+﻿using Framework.Sounds;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Framework.GUI
 {
@@ -15,7 +15,6 @@ namespace Framework.GUI
 
         private void Start()
         {
-            GameContainer.Current.InjectToInstance(this);
             _button.onClick.AddListener(PlaySound);
         }
 

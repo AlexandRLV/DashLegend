@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Framework.DI;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace GameCore.Skins
 {
